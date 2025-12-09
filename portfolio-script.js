@@ -221,34 +221,36 @@ function showProof(theoremName) {
     const proofs = {
         pythagoras: `
             <h3>Pythagorean Theorem Proof</h3>
-            <p><strong>Statement:</strong> In a right triangle with legs a and b and hypotenuse c: a² + b² = c²</p>
+            <p><strong>Statement:</strong> In a right triangle with legs \\(a\\) and \\(b\\) and hypotenuse \\(c\\): \\(a^2 + b^2 = c^2\\)</p>
             <p><strong>Proof by Areas:</strong></p>
             <ol>
-                <li>Consider a square with side length (a + b)</li>
+                <li>Consider a square with side length \\((a + b)\\)</li>
                 <li>Place 4 identical right triangles inside, leaving a smaller square in the center</li>
-                <li>Area of large square: (a + b)² = a² + 2ab + b²</li>
-                <li>Area also equals: 4 × (½ab) + c² = 2ab + c²</li>
-                <li>Therefore: a² + 2ab + b² = 2ab + c²</li>
-                <li>Simplifying: a² + b² = c² ∎</li>
+                <li>Area of large square: \\((a + b)^2 = a^2 + 2ab + b^2\\)</li>
+                <li>Area also equals: \\(4 \\times \\frac{1}{2}ab + c^2 = 2ab + c^2\\)</li>
+                <li>Therefore: \\(a^2 + 2ab + b^2 = 2ab + c^2\\)</li>
+                <li>Simplifying: \\(a^2 + b^2 = c^2\\) \\(\\square\\)</li>
             </ol>
         `,
         ftc: `
             <h3>Fundamental Theorem of Calculus</h3>
-            <p><strong>Statement:</strong> If F is an antiderivative of f, then ∫ₐᵇ f(x)dx = F(b) - F(a)</p>
+            <p><strong>Statement:</strong> If \\(F\\) is an antiderivative of \\(f\\), then:</p>
+            <p>\\[\\int_a^b f(x)\\,dx = F(b) - F(a)\\]</p>
             <p><strong>Intuition:</strong> The definite integral (area under curve) can be computed using antiderivatives.</p>
             <p>This theorem connects differentiation and integration as inverse operations.</p>
+            <p><strong>Example:</strong> \\(\\displaystyle\\int_0^1 x^2\\,dx = \\left[\\frac{x^3}{3}\\right]_0^1 = \\frac{1}{3} - 0 = \\frac{1}{3}\\)</p>
         `,
         euler: `
             <h3>Euler's Identity</h3>
-            <p><strong>Statement:</strong> e^(iπ) + 1 = 0</p>
+            <p><strong>Statement:</strong> \\(e^{i\\pi} + 1 = 0\\)</p>
             <p><strong>Derivation:</strong></p>
             <ol>
-                <li>Start with Euler's formula: e^(ix) = cos(x) + i·sin(x)</li>
-                <li>Substitute x = π: e^(iπ) = cos(π) + i·sin(π)</li>
-                <li>Evaluate: e^(iπ) = -1 + i·0 = -1</li>
-                <li>Therefore: e^(iπ) + 1 = 0 ∎</li>
+                <li>Start with Euler's formula: \\(e^{ix} = \\cos(x) + i\\sin(x)\\)</li>
+                <li>Substitute \\(x = \\pi\\): \\(e^{i\\pi} = \\cos(\\pi) + i\\sin(\\pi)\\)</li>
+                <li>Evaluate: \\(e^{i\\pi} = -1 + i \\cdot 0 = -1\\)</li>
+                <li>Therefore: \\(e^{i\\pi} + 1 = 0\\) \\(\\square\\)</li>
             </ol>
-            <p>This beautiful equation connects five fundamental constants: e, i, π, 1, and 0.</p>
+            <p>This beautiful equation connects five fundamental constants: \\(e\\), \\(i\\), \\(\\pi\\), \\(1\\), and \\(0\\).</p>
         `
     };
     
@@ -295,6 +297,11 @@ function showProof(theoremName) {
     
     modal.appendChild(content);
     document.body.appendChild(modal);
+    
+    // Trigger MathJax to render the new content
+    if (window.MathJax) {
+        MathJax.typesetPromise([content]).catch((err) => console.log('MathJax error:', err));
+    }
     
     modal.addEventListener('click', (e) => {
         if (e.target === modal) {
