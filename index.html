@@ -221,6 +221,222 @@
             <button onclick="appendNumber('.')">.</button>
             <button class="equals" onclick="calculate()">=</button>
         </div>
+        
+        <!-- Scientific Calculator Toggle -->
+        <div style="text-align: center; padding: 15px; background: white;">
+            <button onclick="toggleScientific()" style="padding: 10px 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 600;">
+                Scientific Mode
+            </button>
+        </div>
+        
+        <!-- Scientific Calculator Panel -->
+        <div id="scientificPanel" style="display: none; background: white; padding: 20px; border-top: 1px solid #e0e0e0;">
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
+                <button onclick="calculateFunction('sin')" style="padding: 15px; background: #f0f0f0; border: none; border-radius: 5px; cursor: pointer; font-weight: 500;">sin</button>
+                <button onclick="calculateFunction('cos')" style="padding: 15px; background: #f0f0f0; border: none; border-radius: 5px; cursor: pointer; font-weight: 500;">cos</button>
+                <button onclick="calculateFunction('tan')" style="padding: 15px; background: #f0f0f0; border: none; border-radius: 5px; cursor: pointer; font-weight: 500;">tan</button>
+                <button onclick="calculateFunction('log')" style="padding: 15px; background: #f0f0f0; border: none; border-radius: 5px; cursor: pointer; font-weight: 500;">log</button>
+                
+                <button onclick="calculateFunction('sqrt')" style="padding: 15px; background: #f0f0f0; border: none; border-radius: 5px; cursor: pointer; font-weight: 500;">√</button>
+                <button onclick="calculateFunction('square')" style="padding: 15px; background: #f0f0f0; border: none; border-radius: 5px; cursor: pointer; font-weight: 500;">x²</button>
+                <button onclick="calculateFunction('cube')" style="padding: 15px; background: #f0f0f0; border: none; border-radius: 5px; cursor: pointer; font-weight: 500;">x³</button>
+                <button onclick="calculateFunction('power')" style="padding: 15px; background: #f0f0f0; border: none; border-radius: 5px; cursor: pointer; font-weight: 500;">xʸ</button>
+                
+                <button onclick="calculateFunction('ln')" style="padding: 15px; background: #f0f0f0; border: none; border-radius: 5px; cursor: pointer; font-weight: 500;">ln</button>
+                <button onclick="calculateFunction('exp')" style="padding: 15px; background: #f0f0f0; border: none; border-radius: 5px; cursor: pointer; font-weight: 500;">eˣ</button>
+                <button onclick="insertConstant('pi')" style="padding: 15px; background: #f0f0f0; border: none; border-radius: 5px; cursor: pointer; font-weight: 500;">π</button>
+                <button onclick="insertConstant('e')" style="padding: 15px; background: #f0f0f0; border: none; border-radius: 5px; cursor: pointer; font-weight: 500;">e</button>
+                
+                <button onclick="calculateFunction('factorial')" style="padding: 15px; background: #f0f0f0; border: none; border-radius: 5px; cursor: pointer; font-weight: 500;">n!</button>
+                <button onclick="calculateFunction('reciprocal')" style="padding: 15px; background: #f0f0f0; border: none; border-radius: 5px; cursor: pointer; font-weight: 500;">1/x</button>
+                <button onclick="calculateFunction('abs')" style="padding: 15px; background: #f0f0f0; border: none; border-radius: 5px; cursor: pointer; font-weight: 500;">|x|</button>
+                <button onclick="calculateFunction('percent')" style="padding: 15px; background: #f0f0f0; border: none; border-radius: 5px; cursor: pointer; font-weight: 500;">%</button>
+            </div>
+        </div>
+        
+        <!-- History Panel -->
+        <div style="background: white; padding: 20px; border-top: 1px solid #e0e0e0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h3 style="margin: 0; color: #667eea; font-size: 1.1rem;">History</h3>
+                <button onclick="clearHistory()" style="padding: 8px 15px; background: #ff6b6b; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.9rem;">Clear</button>
+            </div>
+            <div id="historyList" style="max-height: 200px; overflow-y: auto; font-size: 0.95rem; color: #666;">
+                <p style="text-align: center; color: #999;">No calculations yet</p>
+            </div>
+        </div>
+        
+        <!-- Memory Functions -->
+        <div style="background: white; padding: 15px; border-top: 1px solid #e0e0e0;">
+            <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;">
+                <button onclick="memoryStore()" style="padding: 12px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; font-size: 0.9rem;">MS</button>
+                <button onclick="memoryRecall()" style="padding: 12px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; font-size: 0.9rem;">MR</button>
+                <button onclick="memoryAdd()" style="padding: 12px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; font-size: 0.9rem;">M+</button>
+                <button onclick="memorySubtract()" style="padding: 12px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; font-size: 0.9rem;">M-</button>
+                <button onclick="memoryClear()" style="padding: 12px; background: #ff6b6b; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; font-size: 0.9rem;">MC</button>
+            </div>
+            <div id="memoryDisplay" style="text-align: center; margin-top: 10px; font-size: 0.9rem; color: #667eea; font-weight: 600;">Memory: 0</div>
+        </div>
+        
+        <!-- Unit Converter -->
+        <div style="background: white; padding: 20px; border-top: 1px solid #e0e0e0;">
+            <h3 style="margin: 0 0 15px 0; color: #667eea; font-size: 1.1rem;">Unit Converter</h3>
+            <div style="margin-bottom: 15px;">
+                <select id="converterType" onchange="updateConverter()" style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 5px; font-size: 1rem;">
+                    <option value="length">Length</option>
+                    <option value="weight">Weight</option>
+                    <option value="temperature">Temperature</option>
+                    <option value="area">Area</option>
+                    <option value="volume">Volume</option>
+                    <option value="speed">Speed</option>
+                    <option value="time">Time</option>
+                </select>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: center;">
+                <div>
+                    <input type="number" id="fromValue" oninput="convertUnits()" placeholder="0" style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 5px; font-size: 1rem;">
+                    <select id="fromUnit" onchange="convertUnits()" style="width: 100%; padding: 8px; border: 2px solid #e0e0e0; border-radius: 5px; margin-top: 5px; font-size: 0.9rem;"></select>
+                </div>
+                <div style="text-align: center; font-size: 1.5rem; color: #667eea;">⇄</div>
+                <div>
+                    <input type="number" id="toValue" readonly placeholder="0" style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 5px; font-size: 1rem; background: #f9f9f9;">
+                    <select id="toUnit" onchange="convertUnits()" style="width: 100%; padding: 8px; border: 2px solid #e0e0e0; border-radius: 5px; margin-top: 5px; font-size: 0.9rem;"></select>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tips and Keyboard Shortcuts -->
+        <div style="background: white; padding: 20px; border-top: 1px solid #e0e0e0;">
+            <h3 style="margin: 0 0 15px 0; color: #667eea; font-size: 1.1rem;">⌨️ Keyboard Shortcuts</h3>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; font-size: 0.9rem; color: #666;">
+                <div><strong>Numbers:</strong> 0-9</div>
+                <div><strong>Decimal:</strong> . (period)</div>
+                <div><strong>Add:</strong> +</div>
+                <div><strong>Subtract:</strong> -</div>
+                <div><strong>Multiply:</strong> *</div>
+                <div><strong>Divide:</strong> /</div>
+                <div><strong>Calculate:</strong> Enter or =</div>
+                <div><strong>Clear:</strong> Escape</div>
+                <div><strong>Delete:</strong> Backspace</div>
+                <div><strong>Memory Store:</strong> M</div>
+            </div>
+        </div>
+        
+        <!-- Statistics Calculator -->
+        <div style="background: white; padding: 20px; border-top: 1px solid #e0e0e0;">
+            <h3 style="margin: 0 0 15px 0; color: #667eea; font-size: 1.1rem;">📊 Statistics</h3>
+            <textarea id="statsInput" placeholder="Enter numbers separated by commas (e.g., 1, 2, 3, 4, 5)" style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 5px; font-size: 1rem; min-height: 80px; font-family: inherit;"></textarea>
+            <button onclick="calculateStats()" style="width: 100%; padding: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; margin-top: 10px;">Calculate Statistics</button>
+            <div id="statsResults" style="margin-top: 15px; padding: 15px; background: #f9f9f9; border-radius: 5px; display: none;">
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; font-size: 0.95rem;">
+                    <div><strong>Count:</strong> <span id="statCount">0</span></div>
+                    <div><strong>Sum:</strong> <span id="statSum">0</span></div>
+                    <div><strong>Mean:</strong> <span id="statMean">0</span></div>
+                    <div><strong>Median:</strong> <span id="statMedian">0</span></div>
+                    <div><strong>Min:</strong> <span id="statMin">0</span></div>
+                    <div><strong>Max:</strong> <span id="statMax">0</span></div>
+                    <div><strong>Range:</strong> <span id="statRange">0</span></div>
+                    <div><strong>Std Dev:</strong> <span id="statStdDev">0</span></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tip Calculator -->
+        <div style="background: white; padding: 20px; border-top: 1px solid #e0e0e0;">
+            <h3 style="margin: 0 0 15px 0; color: #667eea; font-size: 1.1rem;">💰 Tip Calculator</h3>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px; color: #666; font-size: 0.9rem;">Bill Amount</label>
+                <input type="number" id="billAmount" placeholder="0.00" step="0.01" style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 5px; font-size: 1rem;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px; color: #666; font-size: 0.9rem;">Tip Percentage: <span id="tipPercentDisplay">15</span>%</label>
+                <input type="range" id="tipPercent" min="0" max="50" value="15" oninput="updateTipPercent()" style="width: 100%;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px; color: #666; font-size: 0.9rem;">Number of People</label>
+                <input type="number" id="numPeople" value="1" min="1" style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 5px; font-size: 1rem;">
+            </div>
+            <button onclick="calculateTip()" style="width: 100%; padding: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 600;">Calculate Tip</button>
+            <div id="tipResults" style="margin-top: 15px; padding: 15px; background: #f9f9f9; border-radius: 5px; display: none;">
+                <div style="font-size: 0.95rem; color: #666;">
+                    <div style="margin-bottom: 8px;"><strong>Tip Amount:</strong> $<span id="tipAmount">0.00</span></div>
+                    <div style="margin-bottom: 8px;"><strong>Total Amount:</strong> $<span id="totalAmount">0.00</span></div>
+                    <div style="margin-bottom: 8px;"><strong>Per Person:</strong> $<span id="perPerson">0.00</span></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Loan Calculator -->
+        <div style="background: white; padding: 20px; border-top: 1px solid #e0e0e0;">
+            <h3 style="margin: 0 0 15px 0; color: #667eea; font-size: 1.1rem;">🏦 Loan Calculator</h3>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px; color: #666; font-size: 0.9rem;">Loan Amount</label>
+                <input type="number" id="loanAmount" placeholder="10000" style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 5px; font-size: 1rem;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px; color: #666; font-size: 0.9rem;">Interest Rate (% per year)</label>
+                <input type="number" id="interestRate" placeholder="5" step="0.1" style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 5px; font-size: 1rem;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px; color: #666; font-size: 0.9rem;">Loan Term (months)</label>
+                <input type="number" id="loanTerm" placeholder="12" style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 5px; font-size: 1rem;">
+            </div>
+            <button onclick="calculateLoan()" style="width: 100%; padding: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 600;">Calculate Payment</button>
+            <div id="loanResults" style="margin-top: 15px; padding: 15px; background: #f9f9f9; border-radius: 5px; display: none;">
+                <div style="font-size: 0.95rem; color: #666;">
+                    <div style="margin-bottom: 8px;"><strong>Monthly Payment:</strong> $<span id="monthlyPayment">0.00</span></div>
+                    <div style="margin-bottom: 8px;"><strong>Total Payment:</strong> $<span id="totalPayment">0.00</span></div>
+                    <div style="margin-bottom: 8px;"><strong>Total Interest:</strong> $<span id="totalInterest">0.00</span></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Date Calculator -->
+        <div style="background: white; padding: 20px; border-top: 1px solid #e0e0e0;">
+            <h3 style="margin: 0 0 15px 0; color: #667eea; font-size: 1.1rem;">📅 Date Calculator</h3>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px; color: #666; font-size: 0.9rem;">Start Date</label>
+                <input type="date" id="startDate" style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 5px; font-size: 1rem;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px; color: #666; font-size: 0.9rem;">End Date</label>
+                <input type="date" id="endDate" style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 5px; font-size: 1rem;">
+            </div>
+            <button onclick="calculateDateDiff()" style="width: 100%; padding: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 600;">Calculate Difference</button>
+            <div id="dateResults" style="margin-top: 15px; padding: 15px; background: #f9f9f9; border-radius: 5px; display: none;">
+                <div style="font-size: 0.95rem; color: #666;">
+                    <div style="margin-bottom: 8px;"><strong>Days:</strong> <span id="daysDiff">0</span></div>
+                    <div style="margin-bottom: 8px;"><strong>Weeks:</strong> <span id="weeksDiff">0</span></div>
+                    <div style="margin-bottom: 8px;"><strong>Months:</strong> <span id="monthsDiff">0</span></div>
+                    <div style="margin-bottom: 8px;"><strong>Years:</strong> <span id="yearsDiff">0</span></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- BMI Calculator -->
+        <div style="background: white; padding: 20px; border-top: 1px solid #e0e0e0;">
+            <h3 style="margin: 0 0 15px 0; color: #667eea; font-size: 1.1rem;">⚕️ BMI Calculator</h3>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px; color: #666; font-size: 0.9rem;">Height (cm)</label>
+                <input type="number" id="height" placeholder="170" style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 5px; font-size: 1rem;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px; color: #666; font-size: 0.9rem;">Weight (kg)</label>
+                <input type="number" id="weight" placeholder="70" step="0.1" style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 5px; font-size: 1rem;">
+            </div>
+            <button onclick="calculateBMI()" style="width: 100%; padding: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 600;">Calculate BMI</button>
+            <div id="bmiResults" style="margin-top: 15px; padding: 15px; background: #f9f9f9; border-radius: 5px; display: none;">
+                <div style="font-size: 0.95rem; color: #666;">
+                    <div style="margin-bottom: 8px;"><strong>BMI:</strong> <span id="bmiValue">0</span></div>
+                    <div style="margin-bottom: 8px;"><strong>Category:</strong> <span id="bmiCategory">-</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <div style="text-align: center; color: white; padding: 20px; font-size: 0.9rem;">
+        <p>© 2025 Calculator Pro | All Rights Reserved</p>
+        <p style="margin-top: 5px; opacity: 0.8;">Made with ❤️ by Abdelouahab Mostafa</p>
     </div>
 
     <script>
@@ -355,11 +571,523 @@
             } else if (key === 'Backspace') {
                 event.preventDefault();
                 deleteLast();
+            } else if (key.toLowerCase() === 'm') {
+                memoryStore();
             }
         });
 
         // Initialize display
         updateDisplay();
+        
+        // ============================================
+        // ADVANCED CALCULATOR FUNCTIONS
+        // ============================================
+        
+        // Memory Functions
+        let memoryValue = 0;
+        
+        function memoryStore() {
+            memoryValue = parseFloat(currentValue);
+            updateMemoryDisplay();
+            showNotification('Value stored in memory');
+        }
+        
+        function memoryRecall() {
+            currentValue = memoryValue.toString();
+            updateDisplay();
+            showNotification('Memory recalled');
+        }
+        
+        function memoryAdd() {
+            memoryValue += parseFloat(currentValue);
+            updateMemoryDisplay();
+            showNotification('Added to memory');
+        }
+        
+        function memorySubtract() {
+            memoryValue -= parseFloat(currentValue);
+            updateMemoryDisplay();
+            showNotification('Subtracted from memory');
+        }
+        
+        function memoryClear() {
+            memoryValue = 0;
+            updateMemoryDisplay();
+            showNotification('Memory cleared');
+        }
+        
+        function updateMemoryDisplay() {
+            document.getElementById('memoryDisplay').textContent = `Memory: ${memoryValue}`;
+        }
+        
+        // Scientific Calculator Functions
+        function toggleScientific() {
+            const panel = document.getElementById('scientificPanel');
+            if (panel.style.display === 'none') {
+                panel.style.display = 'block';
+            } else {
+                panel.style.display = 'none';
+            }
+        }
+        
+        function calculateFunction(func) {
+            const value = parseFloat(currentValue);
+            let result;
+            
+            switch(func) {
+                case 'sin':
+                    result = Math.sin(value * Math.PI / 180);
+                    break;
+                case 'cos':
+                    result = Math.cos(value * Math.PI / 180);
+                    break;
+                case 'tan':
+                    result = Math.tan(value * Math.PI / 180);
+                    break;
+                case 'log':
+                    result = Math.log10(value);
+                    break;
+                case 'ln':
+                    result = Math.log(value);
+                    break;
+                case 'sqrt':
+                    result = Math.sqrt(value);
+                    break;
+                case 'square':
+                    result = value * value;
+                    break;
+                case 'cube':
+                    result = value * value * value;
+                    break;
+                case 'exp':
+                    result = Math.exp(value);
+                    break;
+                case 'factorial':
+                    result = factorial(Math.floor(value));
+                    break;
+                case 'reciprocal':
+                    result = 1 / value;
+                    break;
+                case 'abs':
+                    result = Math.abs(value);
+                    break;
+                case 'percent':
+                    result = value / 100;
+                    break;
+                default:
+                    return;
+            }
+            
+            addToHistory(`${func}(${value}) = ${result}`);
+            currentValue = result.toString();
+            updateDisplay();
+        }
+        
+        function factorial(n) {
+            if (n === 0 || n === 1) return 1;
+            let result = 1;
+            for (let i = 2; i <= n; i++) {
+                result *= i;
+            }
+            return result;
+        }
+        
+        function insertConstant(constant) {
+            if (constant === 'pi') {
+                currentValue = Math.PI.toString();
+            } else if (constant === 'e') {
+                currentValue = Math.E.toString();
+            }
+            updateDisplay();
+        }
+        
+        // History Functions
+        let calculationHistory = [];
+        
+        function addToHistory(calculation) {
+            calculationHistory.unshift(calculation);
+            if (calculationHistory.length > 20) {
+                calculationHistory.pop();
+            }
+            updateHistoryDisplay();
+        }
+        
+        function updateHistoryDisplay() {
+            const historyList = document.getElementById('historyList');
+            if (calculationHistory.length === 0) {
+                historyList.innerHTML = '<p style="text-align: center; color: #999;">No calculations yet</p>';
+            } else {
+                historyList.innerHTML = calculationHistory.map(calc => 
+                    `<div style="padding: 8px; border-bottom: 1px solid #e0e0e0; cursor: pointer;" onclick="useHistoryValue('${calc}')">${calc}</div>`
+                ).join('');
+            }
+        }
+        
+        function useHistoryValue(calc) {
+            const match = calc.match(/= (.+)$/);
+            if (match) {
+                currentValue = match[1];
+                updateDisplay();
+            }
+        }
+        
+        function clearHistory() {
+            calculationHistory = [];
+            updateHistoryDisplay();
+            showNotification('History cleared');
+        }
+        
+        // Unit Converter
+        const unitConversions = {
+            length: {
+                meter: 1,
+                kilometer: 0.001,
+                centimeter: 100,
+                millimeter: 1000,
+                mile: 0.000621371,
+                yard: 1.09361,
+                foot: 3.28084,
+                inch: 39.3701
+            },
+            weight: {
+                kilogram: 1,
+                gram: 1000,
+                milligram: 1000000,
+                pound: 2.20462,
+                ounce: 35.274,
+                ton: 0.001
+            },
+            temperature: {
+                celsius: 'C',
+                fahrenheit: 'F',
+                kelvin: 'K'
+            },
+            area: {
+                'square meter': 1,
+                'square kilometer': 0.000001,
+                'square mile': 0.000000386102,
+                'square yard': 1.19599,
+                'square foot': 10.7639,
+                acre: 0.000247105,
+                hectare: 0.0001
+            },
+            volume: {
+                liter: 1,
+                milliliter: 1000,
+                'cubic meter': 0.001,
+                gallon: 0.264172,
+                quart: 1.05669,
+                pint: 2.11338,
+                cup: 4.22675,
+                'fluid ounce': 33.814
+            },
+            speed: {
+                'meters/second': 1,
+                'kilometers/hour': 3.6,
+                'miles/hour': 2.23694,
+                'feet/second': 3.28084,
+                knot: 1.94384
+            },
+            time: {
+                second: 1,
+                minute: 0.0166667,
+                hour: 0.000277778,
+                day: 0.0000115741,
+                week: 0.00000165344,
+                month: 0.000000380517,
+                year: 0.0000000316887
+            }
+        };
+        
+        function updateConverter() {
+            const type = document.getElementById('converterType').value;
+            const fromSelect = document.getElementById('fromUnit');
+            const toSelect = document.getElementById('toUnit');
+            
+            fromSelect.innerHTML = '';
+            toSelect.innerHTML = '';
+            
+            const units = Object.keys(unitConversions[type]);
+            units.forEach(unit => {
+                fromSelect.innerHTML += `<option value="${unit}">${unit}</option>`;
+                toSelect.innerHTML += `<option value="${unit}">${unit}</option>`;
+            });
+            
+            toSelect.selectedIndex = 1;
+            convertUnits();
+        }
+        
+        function convertUnits() {
+            const type = document.getElementById('converterType').value;
+            const fromValue = parseFloat(document.getElementById('fromValue').value) || 0;
+            const fromUnit = document.getElementById('fromUnit').value;
+            const toUnit = document.getElementById('toUnit').value;
+            
+            let result;
+            
+            if (type === 'temperature') {
+                result = convertTemperature(fromValue, fromUnit, toUnit);
+            } else {
+                const conversions = unitConversions[type];
+                const baseValue = fromValue / conversions[fromUnit];
+                result = baseValue * conversions[toUnit];
+            }
+            
+            document.getElementById('toValue').value = result.toFixed(6);
+        }
+        
+        function convertTemperature(value, from, to) {
+            let celsius;
+            
+            if (from === 'celsius') celsius = value;
+            else if (from === 'fahrenheit') celsius = (value - 32) * 5/9;
+            else if (from === 'kelvin') celsius = value - 273.15;
+            
+            if (to === 'celsius') return celsius;
+            else if (to === 'fahrenheit') return celsius * 9/5 + 32;
+            else if (to === 'kelvin') return celsius + 273.15;
+        }
+        
+        // Statistics Calculator
+        function calculateStats() {
+            const input = document.getElementById('statsInput').value;
+            const numbers = input.split(',').map(n => parseFloat(n.trim())).filter(n => !isNaN(n));
+            
+            if (numbers.length === 0) {
+                alert('Please enter valid numbers');
+                return;
+            }
+            
+            const sorted = [...numbers].sort((a, b) => a - b);
+            const count = numbers.length;
+            const sum = numbers.reduce((a, b) => a + b, 0);
+            const mean = sum / count;
+            const median = count % 2 === 0 
+                ? (sorted[count/2 - 1] + sorted[count/2]) / 2 
+                : sorted[Math.floor(count/2)];
+            const min = Math.min(...numbers);
+            const max = Math.max(...numbers);
+            const range = max - min;
+            
+            const variance = numbers.reduce((acc, val) => acc + Math.pow(val - mean, 2), 0) / count;
+            const stdDev = Math.sqrt(variance);
+            
+            document.getElementById('statCount').textContent = count;
+            document.getElementById('statSum').textContent = sum.toFixed(2);
+            document.getElementById('statMean').textContent = mean.toFixed(2);
+            document.getElementById('statMedian').textContent = median.toFixed(2);
+            document.getElementById('statMin').textContent = min.toFixed(2);
+            document.getElementById('statMax').textContent = max.toFixed(2);
+            document.getElementById('statRange').textContent = range.toFixed(2);
+            document.getElementById('statStdDev').textContent = stdDev.toFixed(2);
+            
+            document.getElementById('statsResults').style.display = 'block';
+        }
+        
+        // Tip Calculator
+        function updateTipPercent() {
+            const percent = document.getElementById('tipPercent').value;
+            document.getElementById('tipPercentDisplay').textContent = percent;
+        }
+        
+        function calculateTip() {
+            const billAmount = parseFloat(document.getElementById('billAmount').value) || 0;
+            const tipPercent = parseFloat(document.getElementById('tipPercent').value) || 0;
+            const numPeople = parseInt(document.getElementById('numPeople').value) || 1;
+            
+            const tipAmount = billAmount * (tipPercent / 100);
+            const totalAmount = billAmount + tipAmount;
+            const perPerson = totalAmount / numPeople;
+            
+            document.getElementById('tipAmount').textContent = tipAmount.toFixed(2);
+            document.getElementById('totalAmount').textContent = totalAmount.toFixed(2);
+            document.getElementById('perPerson').textContent = perPerson.toFixed(2);
+            
+            document.getElementById('tipResults').style.display = 'block';
+        }
+        
+        // Loan Calculator
+        function calculateLoan() {
+            const principal = parseFloat(document.getElementById('loanAmount').value) || 0;
+            const annualRate = parseFloat(document.getElementById('interestRate').value) || 0;
+            const months = parseInt(document.getElementById('loanTerm').value) || 0;
+            
+            if (principal === 0 || months === 0) {
+                alert('Please enter valid loan amount and term');
+                return;
+            }
+            
+            const monthlyRate = annualRate / 100 / 12;
+            const monthlyPayment = principal * (monthlyRate * Math.pow(1 + monthlyRate, months)) / 
+                                 (Math.pow(1 + monthlyRate, months) - 1);
+            const totalPayment = monthlyPayment * months;
+            const totalInterest = totalPayment - principal;
+            
+            document.getElementById('monthlyPayment').textContent = monthlyPayment.toFixed(2);
+            document.getElementById('totalPayment').textContent = totalPayment.toFixed(2);
+            document.getElementById('totalInterest').textContent = totalInterest.toFixed(2);
+            
+            document.getElementById('loanResults').style.display = 'block';
+        }
+        
+        // Date Calculator
+        function calculateDateDiff() {
+            const startDate = new Date(document.getElementById('startDate').value);
+            const endDate = new Date(document.getElementById('endDate').value);
+            
+            if (!startDate || !endDate) {
+                alert('Please select both dates');
+                return;
+            }
+            
+            const diffTime = Math.abs(endDate - startDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            const diffWeeks = Math.floor(diffDays / 7);
+            const diffMonths = Math.floor(diffDays / 30.44);
+            const diffYears = Math.floor(diffDays / 365.25);
+            
+            document.getElementById('daysDiff').textContent = diffDays;
+            document.getElementById('weeksDiff').textContent = diffWeeks;
+            document.getElementById('monthsDiff').textContent = diffMonths;
+            document.getElementById('yearsDiff').textContent = diffYears;
+            
+            document.getElementById('dateResults').style.display = 'block';
+        }
+        
+        // BMI Calculator
+        function calculateBMI() {
+            const height = parseFloat(document.getElementById('height').value) || 0;
+            const weight = parseFloat(document.getElementById('weight').value) || 0;
+            
+            if (height === 0 || weight === 0) {
+                alert('Please enter valid height and weight');
+                return;
+            }
+            
+            const heightInMeters = height / 100;
+            const bmi = weight / (heightInMeters * heightInMeters);
+            
+            let category;
+            if (bmi < 18.5) category = 'Underweight';
+            else if (bmi < 25) category = 'Normal weight';
+            else if (bmi < 30) category = 'Overweight';
+            else category = 'Obese';
+            
+            document.getElementById('bmiValue').textContent = bmi.toFixed(2);
+            document.getElementById('bmiCategory').textContent = category;
+            
+            document.getElementById('bmiResults').style.display = 'block';
+        }
+        
+        // Notification System
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 15px 25px;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                z-index: 10000;
+                animation: slideIn 0.3s ease-out;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease-out';
+                setTimeout(() => notification.remove(), 300);
+            }, 2000);
+        }
+        
+        // Add animation styles
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    transform: translateX(400px);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            
+            @keyframes slideOut {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(400px);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Initialize converters on load
+        window.addEventListener('load', () => {
+            updateConverter();
+            
+            // Set today's date as default for date calculator
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('startDate').value = today;
+            document.getElementById('endDate').value = today;
+        });
+        
+        // Enhanced calculate function with history
+        const originalCalculate = calculate;
+        calculate = function() {
+            const expr = `${previousValue} ${operation} ${currentValue}`;
+            originalCalculate();
+            if (operation !== null) {
+                addToHistory(`${expr} = ${currentValue}`);
+            }
+        };
+        
+        // Save calculator state to localStorage
+        function saveState() {
+            const state = {
+                currentValue,
+                previousValue,
+                operation,
+                memoryValue,
+                history: calculationHistory
+            };
+            localStorage.setItem('calculatorState', JSON.stringify(state));
+        }
+        
+        function loadState() {
+            const saved = localStorage.getItem('calculatorState');
+            if (saved) {
+                const state = JSON.parse(saved);
+                currentValue = state.currentValue || '0';
+                previousValue = state.previousValue || '';
+                operation = state.operation || null;
+                memoryValue = state.memoryValue || 0;
+                calculationHistory = state.history || [];
+                updateDisplay();
+                updateMemoryDisplay();
+                updateHistoryDisplay();
+            }
+        }
+        
+        // Auto-save state on changes
+        setInterval(saveState, 1000);
+        
+        // Load state on page load
+        loadState();
+        
+        // Console easter egg
+        console.log('%c🧮 Advanced Calculator Pro ', 'background: linear-gradient(135deg, #667eea, #764ba2); color: white; font-size: 20px; padding: 10px; border-radius: 5px;');
+        console.log('%cFeatures: Basic Math, Scientific Functions, Unit Converter, Statistics, Tip/Loan/BMI/Date Calculators', 'color: #667eea; font-size: 12px;');
+        console.log('%cMade with ❤️ by Abdelouahab Mostafa', 'color: #764ba2; font-size: 12px;');
     </script>
 </body>
 </html>
