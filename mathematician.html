@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Abdelouahab Mostafa - Mathematician | Academic Articles, Books, Research & Educational Resources">
+    <meta name="keywords" content="mathematics, mathematician, research, academic articles, math books, education">
+    <meta name="author" content="Abdelouahab Mostafa">
+    <title>Abdelouahab Mostafa - Mathematician & Researcher</title>
+    <link rel="icon" type="image/webp" href="OIP.webp">
+    <link rel="stylesheet" href="math-styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1>Abdelouahab Mostafa</h1>
+                <p>Mathematician & Researcher</p>
+            </div>
+            <button class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#articles" class="nav-link">Articles</a></li>
+                <li><a href="#books" class="nav-link">Books & Resources</a></li>
+                <li><a href="#advice" class="nav-link">Advice</a></li>
+                <li><a href="#notes" class="nav-link">My Notes</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><button class="theme-toggle" id="themeToggle">🌙</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">Welcome to My Mathematical Universe</h1>
+                <p class="hero-subtitle">Exploring the beauty of mathematics through research, teaching, and sharing knowledge</p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="articlesCount">0</span>
+                        <span class="stat-label">Articles Published</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="booksCount">0</span>
+                        <span class="stat-label">Books & Resources</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="studentsHelped">0</span>
+                        <span class="stat-label">Students Helped</span>
+                    </div>
+                </div>
+                <div class="hero-buttons">
+                    <a href="#articles" class="btn btn-primary">Read Articles</a>
+                    <a href="#books" class="btn btn-secondary">Browse Books</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="floating-shapes">
+                    <div class="shape shape-1">π</div>
+                    <div class="shape shape-2">∞</div>
+                    <div class="shape shape-3">∑</div>
+                    <div class="shape shape-4">∫</div>
+                    <div class="shape shape-5">∂</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-image">
+                    <div class="image-placeholder">
+                        <svg viewBox="0 0 200 200" width="200" height="200">
+                            <circle cx="100" cy="100" r="90" fill="#667eea"/>
+                            <text x="100" y="120" font-size="80" fill="white" text-anchor="middle" font-weight="bold">AM</text>
+                        </svg>
+                    </div>
+                </div>
+                <div class="about-text">
+                    <h3>Abdelouahab Mostafa</h3>
+                    <p class="subtitle">Mathematician | Researcher | Educator</p>
+                    <p class="bio">
+                        I am a passionate mathematician dedicated to exploring the profound beauty and applications of mathematical sciences. 
+                        My work spans across various fields of mathematics, from pure theoretical research to practical applications 
+                        that solve real-world problems.
+                    </p>
+                    <p class="bio">
+                        Through this platform, I share my research findings, educational materials, and insights gained from years of 
+                        study and teaching. My mission is to make mathematics accessible and inspiring for everyone, from students 
+                        taking their first steps in algebra to fellow researchers pushing the boundaries of mathematical knowledge.
+                    </p>
+                    <div class="expertise">
+                        <h4>Areas of Expertise:</h4>
+                        <div class="expertise-tags">
+                            <span class="tag">Abstract Algebra</span>
+                            <span class="tag">Real Analysis</span>
+                            <span class="tag">Topology</span>
+                            <span class="tag">Number Theory</span>
+                            <span class="tag">Differential Equations</span>
+                            <span class="tag">Mathematical Logic</span>
+                            <span class="tag">Computational Mathematics</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Articles Section -->
+    <section id="articles" class="articles">
+        <div class="container">
+            <h2 class="section-title">Academic Articles & Research</h2>
+            <p class="section-description">Explore my published research papers, mathematical insights, and academic contributions</p>
+            
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">All Articles</button>
+                <button class="filter-btn" data-filter="algebra">Algebra</button>
+                <button class="filter-btn" data-filter="analysis">Analysis</button>
+                <button class="filter-btn" data-filter="topology">Topology</button>
+                <button class="filter-btn" data-filter="applied">Applied Math</button>
+                <button class="filter-btn" data-filter="education">Education</button>
+            </div>
+
+            <div class="articles-grid" id="articlesGrid">
+                <!-- Articles will be dynamically loaded -->
+            </div>
+
+            <div class="article-form-section">
+                <h3>Add New Article</h3>
+                <form id="articleForm" class="content-form">
+                    <div class="form-group">
+                        <label for="articleTitle">Article Title *</label>
+                        <input type="text" id="articleTitle" required placeholder="Enter article title">
+                    </div>
+                    <div class="form-group">
+                        <label for="articleCategory">Category *</label>
+                        <select id="articleCategory" required>
+                            <option value="">Select category</option>
+                            <option value="algebra">Algebra</option>
+                            <option value="analysis">Analysis</option>
+                            <option value="topology">Topology</option>
+                            <option value="applied">Applied Math</option>
+                            <option value="education">Education</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="articleAbstract">Abstract *</label>
+                        <textarea id="articleAbstract" rows="4" required placeholder="Brief summary of the article"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="articleContent">Full Content *</label>
+                        <textarea id="articleContent" rows="10" required placeholder="Write your article content here..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="articleKeywords">Keywords (comma separated)</label>
+                        <input type="text" id="articleKeywords" placeholder="e.g., topology, manifolds, homology">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Publish Article</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Books & Resources Section -->
+    <section id="books" class="books">
+        <div class="container">
+            <h2 class="section-title">Books & Educational Resources</h2>
+            <p class="section-description">Download free mathematical books, lecture notes, and study materials</p>
+            
+            <div class="books-grid" id="booksGrid">
+                <!-- Books will be dynamically loaded -->
+            </div>
+
+            <div class="book-form-section">
+                <h3>Add New Book/Resource</h3>
+                <form id="bookForm" class="content-form">
+                    <div class="form-group">
+                        <label for="bookTitle">Title *</label>
+                        <input type="text" id="bookTitle" required placeholder="Book or resource title">
+                    </div>
+                    <div class="form-group">
+                        <label for="bookAuthor">Author *</label>
+                        <input type="text" id="bookAuthor" required placeholder="Author name">
+                    </div>
+                    <div class="form-group">
+                        <label for="bookType">Type *</label>
+                        <select id="bookType" required>
+                            <option value="">Select type</option>
+                            <option value="textbook">Textbook</option>
+                            <option value="notes">Lecture Notes</option>
+                            <option value="guide">Study Guide</option>
+                            <option value="reference">Reference Material</option>
+                            <option value="solutions">Solutions Manual</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="bookDescription">Description *</label>
+                        <textarea id="bookDescription" rows="4" required placeholder="Brief description of the content"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="bookPdfUrl">PDF URL/File Path</label>
+                        <input type="text" id="bookPdfUrl" placeholder="Enter PDF URL or upload path">
+                    </div>
+                    <div class="form-group">
+                        <label for="bookPages">Number of Pages</label>
+                        <input type="number" id="bookPages" placeholder="e.g., 350">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Resource</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advice Section -->
+    <section id="advice" class="advice">
+        <div class="container">
+            <h2 class="section-title">Mathematical Advice & Tips</h2>
+            <p class="section-description">Guidance for students, researchers, and mathematics enthusiasts</p>
+            
+            <div class="advice-categories">
+                <button class="advice-tab active" data-tab="students">For Students</button>
+                <button class="advice-tab" data-tab="researchers">For Researchers</button>
+                <button class="advice-tab" data-tab="career">Career Advice</button>
+                <button class="advice-tab" data-tab="study">Study Tips</button>
+            </div>
+
+            <div class="advice-content">
+                <div class="advice-panel active" id="students">
+                    <div class="advice-grid" id="studentsAdviceGrid">
+                        <!-- Advice cards will be loaded here -->
+                    </div>
+                </div>
+                <div class="advice-panel" id="researchers">
+                    <div class="advice-grid" id="researchersAdviceGrid">
+                        <!-- Advice cards will be loaded here -->
+                    </div>
+                </div>
+                <div class="advice-panel" id="career">
+                    <div class="advice-grid" id="careerAdviceGrid">
+                        <!-- Advice cards will be loaded here -->
+                    </div>
+                </div>
+                <div class="advice-panel" id="study">
+                    <div class="advice-grid" id="studyAdviceGrid">
+                        <!-- Advice cards will be loaded here -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="advice-form-section">
+                <h3>Share New Advice</h3>
+                <form id="adviceForm" class="content-form">
+                    <div class="form-group">
+                        <label for="adviceCategory">Category *</label>
+                        <select id="adviceCategory" required>
+                            <option value="">Select category</option>
+                            <option value="students">For Students</option>
+                            <option value="researchers">For Researchers</option>
+                            <option value="career">Career Advice</option>
+                            <option value="study">Study Tips</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="adviceTitle">Title *</label>
+                        <input type="text" id="adviceTitle" required placeholder="Advice title">
+                    </div>
+                    <div class="form-group">
+                        <label for="adviceContent">Content *</label>
+                        <textarea id="adviceContent" rows="6" required placeholder="Share your advice..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Share Advice</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Personal Notes Section -->
+    <section id="notes" class="notes">
+        <div class="container">
+            <h2 class="section-title">My Personal Notes & Ideas</h2>
+            <p class="section-description">A collection of my thoughts, research notes, and mathematical explorations</p>
+            
+            <div class="notes-header">
+                <div class="search-box">
+                    <input type="text" id="notesSearch" placeholder="Search notes...">
+                    <button class="search-btn">🔍</button>
+                </div>
+                <button class="btn btn-primary" id="addNoteBtn">+ New Note</button>
+            </div>
+
+            <div class="notes-grid" id="notesGrid">
+                <!-- Notes will be dynamically loaded -->
+            </div>
+
+            <!-- Note Editor Modal -->
+            <div class="modal" id="noteModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 id="noteModalTitle">New Note</h3>
+                        <button class="close-modal" id="closeNoteModal">&times;</button>
+                    </div>
+                    <form id="noteForm">
+                        <div class="form-group">
+                            <label for="noteTitle">Title *</label>
+                            <input type="text" id="noteTitle" required placeholder="Note title">
+                        </div>
+                        <div class="form-group">
+                            <label for="noteCategory">Category</label>
+                            <input type="text" id="noteCategory" placeholder="e.g., Research, Ideas, Todo">
+                        </div>
+                        <div class="form-group">
+                            <label for="noteContent">Content *</label>
+                            <textarea id="noteContent" rows="12" required placeholder="Write your note here..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="noteImportant">
+                                Mark as important
+                            </label>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" id="cancelNote">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save Note</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <p class="section-description">Have questions or want to collaborate? I'd love to hear from you!</p>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="info-card">
+                        <div class="info-icon">📧</div>
+                        <h4>Email</h4>
+                        <p>abdelouahab.mostafa@email.com</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">🎓</div>
+                        <h4>Academic Profile</h4>
+                        <p>Research Gate | Google Scholar</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">💼</div>
+                        <h4>LinkedIn</h4>
+                        <p>Connect professionally</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">🐙</div>
+                        <h4>GitHub</h4>
+                        <p>github.com/abdelouahabmostafaetu-bot</p>
+                    </div>
+                </div>
+                
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="contactName">Your Name *</label>
+                        <input type="text" id="contactName" required placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="contactEmail">Your Email *</label>
+                        <input type="email" id="contactEmail" required placeholder="your.email@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="contactSubject">Subject *</label>
+                        <input type="text" id="contactSubject" required placeholder="What is this about?">
+                    </div>
+                    <div class="form-group">
+                        <label for="contactMessage">Message *</label>
+                        <textarea id="contactMessage" rows="6" required placeholder="Your message..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Abdelouahab Mostafa</h4>
+                    <p>Mathematician & Researcher</p>
+                    <p class="motto">"Mathematics is the poetry of logical ideas"</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#articles">Articles</a></li>
+                        <li><a href="#books">Books</a></li>
+                        <li><a href="#advice">Advice</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#notes">Personal Notes</a></li>
+                        <li><a href="sudoku/index.html">Sudoku Game</a></li>
+                        <li><a href="#books">Free Downloads</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Stay Updated</h4>
+                    <p>Follow my work and new publications</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">📘</a>
+                        <a href="#" class="social-link">🐦</a>
+                        <a href="#" class="social-link">📚</a>
+                        <a href="#" class="social-link">💼</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Abdelouahab Mostafa. All rights reserved.</p>
+                <p>Made with ❤️ and Mathematics</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTop">↑</button>
+
+    <!-- Notification Toast -->
+    <div class="toast" id="toast">
+        <div class="toast-icon" id="toastIcon"></div>
+        <div class="toast-message" id="toastMessage"></div>
+    </div>
+
+    <script src="math-script.js"></script>
+</body>
+</html>
