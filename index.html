@@ -1309,6 +1309,494 @@
 
         console.log('%c✨ All features loaded successfully!', 'color: #48bb78; font-size: 14px; font-weight: bold;');
         console.log('%cKeyboard Shortcuts: Ctrl+K (Search) | Ctrl+B (Bookmarks) | Ctrl+D (Dark Mode)', 'color: #f6ad55; font-size: 12px;');
+
+        // ============================================
+        // ADDITIONAL ADVANCED FEATURES
+        // ============================================
+
+        // Voice search functionality
+        let recognition = null;
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                document.getElementById('searchInput').value = transcript;
+                searchNews();
+                showCustomNotification(`Searching for: ${transcript}`, 'info');
+            };
+
+            recognition.onerror = (event) => {
+                console.error('Speech recognition error:', event.error);
+                showCustomNotification('Voice search failed', 'error');
+            };
+        }
+
+        function startVoiceSearch() {
+            if (recognition) {
+                recognition.start();
+                showCustomNotification('Listening...', 'info');
+            } else {
+                showCustomNotification('Voice search not supported', 'warning');
+            }
+        }
+
+        // Reading list functionality
+        let readingList = JSON.parse(localStorage.getItem('readingList') || '[]');
+
+        function addToReadingList(newsIndex) {
+            const news = allNews[newsIndex];
+            if (!readingList.find(item => item.title === news.title)) {
+                readingList.push({
+                    ...news,
+                    addedDate: new Date().toISOString(),
+                    progress: 0
+                });
+                localStorage.setItem('readingList', JSON.stringify(readingList));
+                showCustomNotification('Added to reading list', 'success');
+            } else {
+                showCustomNotification('Already in reading list', 'info');
+            }
+        }
+
+        function updateReadingProgress(newsTitle, progress) {
+            const item = readingList.find(i => i.title === newsTitle);
+            if (item) {
+                item.progress = progress;
+                item.lastRead = new Date().toISOString();
+                localStorage.setItem('readingList', JSON.stringify(readingList));
+            }
+        }
+
+        function getReadingList() {
+            return readingList.sort((a, b) => new Date(b.addedDate) - new Date(a.addedDate));
+        }
+
+        // Article rating system
+        let articleRatings = JSON.parse(localStorage.getItem('articleRatings') || '{}');
+
+        function rateArticle(newsTitle, rating) {
+            if (rating < 1 || rating > 5) {
+                showCustomNotification('Rating must be between 1 and 5', 'warning');
+                return;
+            }
+
+            articleRatings[newsTitle] = {
+                rating: rating,
+                ratedDate: new Date().toISOString()
+            };
+
+            localStorage.setItem('articleRatings', JSON.stringify(articleRatings));
+            showCustomNotification(`Rated ${rating} stars`, 'success');
+        }
+
+        function getAverageRating() {
+            const ratings = Object.values(articleRatings).map(r => r.rating);
+            if (ratings.length === 0) return 0;
+            return (ratings.reduce((a, b) => a + b, 0) / ratings.length).toFixed(2);
+        }
+
+        function getTopRatedArticles(limit = 5) {
+            return Object.entries(articleRatings)
+                .sort((a, b) => b[1].rating - a[1].rating)
+                .slice(0, limit)
+                .map(([title, data]) => ({ title, ...data }));
+        }
+
+        // News categories manager
+        const categoryManager = {
+            categories: new Set(),
+            
+            init() {
+                allNews.forEach(news => {
+                    this.categories.add(news.category);
+                });
+            },
+
+            getCategories() {
+                return Array.from(this.categories).sort();
+            },
+
+            getCategoryCount(category) {
+                return allNews.filter(news => news.category === category).length;
+            },
+
+            getMostPopularCategory() {
+                const counts = {};
+                allNews.forEach(news => {
+                    counts[news.category] = (counts[news.category] || 0) + 1;
+                });
+                return Object.entries(counts).sort((a, b) => b[1] - a[1])[0];
+            }
+        };
+
+        // Notification center
+        const notificationCenter = {
+            notifications: [],
+            maxNotifications: 50,
+
+            add(message, type, persistent = false) {
+                this.notifications.unshift({
+                    id: Date.now(),
+                    message,
+                    type,
+                    timestamp: new Date().toISOString(),
+                    persistent,
+                    read: false
+                });
+
+                if (this.notifications.length > this.maxNotifications) {
+                    this.notifications = this.notifications.slice(0, this.maxNotifications);
+                }
+
+                this.save();
+            },
+
+            markAsRead(notificationId) {
+                const notif = this.notifications.find(n => n.id === notificationId);
+                if (notif) {
+                    notif.read = true;
+                    this.save();
+                }
+            },
+
+            getUnread() {
+                return this.notifications.filter(n => !n.read);
+            },
+
+            clearAll() {
+                this.notifications = [];
+                this.save();
+            },
+
+            save() {
+                localStorage.setItem('notifications', JSON.stringify(this.notifications));
+            },
+
+            load() {
+                const saved = localStorage.getItem('notifications');
+                if (saved) {
+                    this.notifications = JSON.parse(saved);
+                }
+            }
+        };
+
+        // Text-to-speech for articles
+        function readArticleAloud(newsIndex) {
+            if ('speechSynthesis' in window) {
+                const news = allNews[newsIndex];
+                const utterance = new SpeechSynthesisUtterance();
+                utterance.text = `${news.title}. ${news.description}`;
+                utterance.rate = 1.0;
+                utterance.pitch = 1.0;
+                utterance.volume = 1.0;
+
+                utterance.onstart = () => {
+                    showCustomNotification('Reading article...', 'info');
+                };
+
+                utterance.onend = () => {
+                    showCustomNotification('Finished reading', 'success');
+                };
+
+                window.speechSynthesis.speak(utterance);
+            } else {
+                showCustomNotification('Text-to-speech not supported', 'warning');
+            }
+        }
+
+        function stopReading() {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                showCustomNotification('Stopped reading', 'info');
+            }
+        }
+
+        // Image placeholder generator
+        function generatePlaceholder(category) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 400;
+            canvas.height = 200;
+            const ctx = canvas.getContext('2d');
+
+            const gradients = {
+                'Number Theory': ['#667eea', '#764ba2'],
+                'Pure Mathematics': ['#764ba2', '#f093fb'],
+                'Applied Math': ['#f093fb', '#667eea'],
+                'Topology': ['#4facfe', '#00f2fe'],
+                'Statistics': ['#43e97b', '#38f9d7'],
+                'Geometry': ['#fa709a', '#fee140'],
+                'Calculus': ['#fee140', '#30cfd0'],
+                'Algebra': ['#30cfd0', '#330867']
+            };
+
+            const colors = gradients[category] || ['#667eea', '#764ba2'];
+            const gradient = ctx.createLinearGradient(0, 0, 400, 200);
+            gradient.addColorStop(0, colors[0]);
+            gradient.addColorStop(1, colors[1]);
+
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 400, 200);
+
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+            ctx.font = 'bold 48px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(getCategoryIcon(category), 200, 100);
+
+            return canvas.toDataURL();
+        }
+
+        // Lazy loading manager
+        const lazyLoadManager = {
+            observer: null,
+            
+            init() {
+                if ('IntersectionObserver' in window) {
+                    this.observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                const img = entry.target;
+                                if (img.dataset.src) {
+                                    img.src = img.dataset.src;
+                                    img.removeAttribute('data-src');
+                                    this.observer.unobserve(img);
+                                }
+                            }
+                        });
+                    });
+                }
+            },
+
+            observe(element) {
+                if (this.observer) {
+                    this.observer.observe(element);
+                }
+            }
+        };
+
+        // Search history manager
+        const searchHistory = {
+            history: [],
+            maxHistory: 20,
+
+            add(query) {
+                if (!query || query.trim() === '') return;
+
+                this.history = this.history.filter(h => h.query !== query);
+                this.history.unshift({
+                    query: query,
+                    timestamp: new Date().toISOString(),
+                    resultsCount: 0
+                });
+
+                if (this.history.length > this.maxHistory) {
+                    this.history = this.history.slice(0, this.maxHistory);
+                }
+
+                this.save();
+            },
+
+            updateResultsCount(query, count) {
+                const item = this.history.find(h => h.query === query);
+                if (item) {
+                    item.resultsCount = count;
+                    this.save();
+                }
+            },
+
+            get() {
+                return this.history;
+            },
+
+            clear() {
+                this.history = [];
+                this.save();
+            },
+
+            save() {
+                localStorage.setItem('searchHistory', JSON.stringify(this.history));
+            },
+
+            load() {
+                const saved = localStorage.getItem('searchHistory');
+                if (saved) {
+                    this.history = JSON.parse(saved);
+                }
+            },
+
+            getMostSearched(limit = 5) {
+                const queryCounts = {};
+                this.history.forEach(h => {
+                    queryCounts[h.query] = (queryCounts[h.query] || 0) + 1;
+                });
+                return Object.entries(queryCounts)
+                    .sort((a, b) => b[1] - a[1])
+                    .slice(0, limit)
+                    .map(([query, count]) => ({ query, count }));
+            }
+        };
+
+        // Content filter and moderation
+        const contentFilter = {
+            sensitiveWords: [],
+            
+            addSensitiveWord(word) {
+                this.sensitiveWords.push(word.toLowerCase());
+            },
+
+            checkContent(text) {
+                const lowerText = text.toLowerCase();
+                return this.sensitiveWords.some(word => lowerText.includes(word));
+            },
+
+            filterNews(newsArray) {
+                return newsArray.filter(news => 
+                    !this.checkContent(news.title) && 
+                    !this.checkContent(news.description)
+                );
+            }
+        };
+
+        // Offline mode detection
+        let isOffline = !navigator.onLine;
+
+        window.addEventListener('online', () => {
+            isOffline = false;
+            showCustomNotification('Back online! 🌐', 'success');
+            document.body.style.filter = 'none';
+        });
+
+        window.addEventListener('offline', () => {
+            isOffline = true;
+            showCustomNotification('You are offline 📡', 'warning');
+            document.body.style.filter = 'grayscale(50%)';
+        });
+
+        function checkOnlineStatus() {
+            return !isOffline;
+        }
+
+        // Article comparison tool
+        function compareArticles(newsIndex1, newsIndex2) {
+            const article1 = allNews[newsIndex1];
+            const article2 = allNews[newsIndex2];
+
+            const comparison = {
+                sameCategory: article1.category === article2.category,
+                sameSource: article1.source === article2.source,
+                commonTags: article1.tags.filter(tag => article2.tags.includes(tag)),
+                timeDifference: Math.abs(new Date(article1.date) - new Date(article2.date)) / (1000 * 60 * 60 * 24),
+                similarity: calculateSimilarity(article1, article2)
+            };
+
+            return comparison;
+        }
+
+        function calculateSimilarity(article1, article2) {
+            let score = 0;
+            
+            if (article1.category === article2.category) score += 30;
+            
+            const commonTags = article1.tags.filter(tag => article2.tags.includes(tag));
+            score += commonTags.length * 10;
+
+            const words1 = article1.title.toLowerCase().split(' ');
+            const words2 = article2.title.toLowerCase().split(' ');
+            const commonWords = words1.filter(word => words2.includes(word) && word.length > 3);
+            score += commonWords.length * 5;
+
+            return Math.min(100, score);
+        }
+
+        // Citation generator
+        function generateCitation(newsIndex, style = 'APA') {
+            const news = allNews[newsIndex];
+            const date = new Date(news.date);
+            const year = date.getFullYear();
+            const month = date.toLocaleDateString('en-US', { month: 'long' });
+            const day = date.getDate();
+
+            const citations = {
+                APA: `${news.source}. (${year}, ${month} ${day}). ${news.title}. ${news.category}.`,
+                MLA: `"${news.title}." ${news.source}, ${day} ${month} ${year}.`,
+                Chicago: `${news.source}. "${news.title}." ${news.category}, ${month} ${day}, ${year}.`,
+                Harvard: `${news.source} (${year}) '${news.title}', ${news.category}, ${day} ${month}.`
+            };
+
+            return citations[style] || citations.APA;
+        }
+
+        // Analytics dashboard data
+        const analyticsDashboard = {
+            getInsights() {
+                return {
+                    totalArticles: allNews.length,
+                    totalBookmarks: bookmarkedNews.length,
+                    totalSearches: statsTracker.searches,
+                    categoriesCount: categoryManager.getCategories().length,
+                    averageRating: getAverageRating(),
+                    mostPopularCategory: categoryManager.getMostPopularCategory(),
+                    readingListSize: readingList.length,
+                    unreadNotifications: notificationCenter.getUnread().length,
+                    searchHistorySize: searchHistory.history.length,
+                    topSearchQueries: searchHistory.getMostSearched(3),
+                    isOnline: checkOnlineStatus()
+                };
+            },
+
+            displayInConsole() {
+                const insights = this.getInsights();
+                console.log('%c📊 Analytics Dashboard', 'background: linear-gradient(135deg, #667eea, #764ba2); color: white; font-size: 18px; padding: 10px; border-radius: 5px;');
+                console.table(insights);
+            }
+        };
+
+        // Initialize new features
+        categoryManager.init();
+        notificationCenter.load();
+        searchHistory.load();
+        lazyLoadManager.init();
+
+        // Add notifications for major events
+        const originalDisplayNews = displayNews;
+        displayNews = function(newsArray) {
+            notificationCenter.add(`Displaying ${newsArray.length} articles`, 'info');
+            originalDisplayNews(newsArray);
+        };
+
+        // Show analytics after initialization
+        setTimeout(() => {
+            analyticsDashboard.displayInConsole();
+        }, 7000);
+
+        // Random math fact generator
+        const mathFacts = [
+            "The only number that is not divisible by 2 or 3 but all its multiples are is 1",
+            "In a room of 23 people, there's a 50% chance two share a birthday",
+            "The sum of all angles in a triangle always equals 180 degrees",
+            "Zero is the only number that cannot be represented in Roman numerals",
+            "A 'googol' is 10^100, and a 'googolplex' is 10^googol",
+            "Pi has been calculated to over 100 trillion digits",
+            "The Fibonacci sequence appears throughout nature",
+            "Every odd number contains the letter 'e' when spelled out"
+        ];
+
+        function showRandomMathFact() {
+            const fact = mathFacts[Math.floor(Math.random() * mathFacts.length)];
+            showCustomNotification(`🎲 ${fact}`, 'info');
+        }
+
+        // Show random fact every 30 seconds
+        setInterval(showRandomMathFact, 30000);
+
+        console.log('%c🚀 Advanced features loaded! Total: 25+ new features', 'color: #48bb78; font-size: 16px; font-weight: bold;');
+        console.log('%c📱 Features: Voice Search, Reading List, Ratings, Text-to-Speech, Citations, Analytics & more!', 'color: #667eea; font-size: 12px;');
+        console.log('%c💻 Created by Abdelouahab Mostafa - Mathematics News Hub Pro', 'color: #764ba2; font-size: 14px; font-weight: bold;');
     </script>
 </body>
 </html>
