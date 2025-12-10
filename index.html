@@ -3,527 +3,1312 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Abdelouahab Mostafa - Mathematics Portfolio & Interactive Learning Platform">
-    <meta name="keywords" content="mathematics, portfolio, education, interactive learning, Abdelouahab Mostafa">
+    <meta name="description" content="Latest Mathematics News & Discoveries - Auto-updated mathematical breakthroughs, research, and articles">
+    <meta name="keywords" content="mathematics news, math research, mathematical discoveries, STEM news, Abdelouahab Mostafa">
     <meta name="author" content="Abdelouahab Mostafa">
-    <title>Abdelouahab Mostafa | Mathematics & Innovation</title>
-    <link rel="icon" type="image/webp" href="OIP.webp">
-    <link rel="stylesheet" href="portfolio-styles.css">
-    <!-- MathJax for mathematical equations -->
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <title>Mathematics News Hub | Latest Discoveries & Research</title>
+    <link rel="icon" href="OIP.webp" type="image/webp">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --accent: #f093fb;
+            --dark: #1a202c;
+            --light: #f7fafc;
+            --card-bg: #ffffff;
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-attachment: fixed;
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .math-symbol {
+            position: absolute;
+            font-size: 3rem;
+            color: rgba(255,255,255,0.1);
+            animation: float 20s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-100px) rotate(180deg); }
+        }
+
+        /* Header */
+        header {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .search-container {
+            flex: 1;
+            max-width: 600px;
+            position: relative;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 1rem 3rem 1rem 1.5rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        #searchInput:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        /* Filter Tabs */
+        .filter-tabs {
+            background: white;
+            padding: 1.5rem 0;
+            box-shadow: var(--shadow);
+        }
+
+        .tabs-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: 0.8rem 2rem;
+            border: 2px solid #e0e0e0;
+            background: white;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            color: var(--dark);
+        }
+
+        .tab-btn:hover, .tab-btn.active {
+            background: var(--gradient);
+            color: white;
+            border-color: transparent;
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1400px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .spinner {
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* News Grid */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            cursor: pointer;
+            animation: fadeInUp 0.5s;
+        }
+
+        .news-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .news-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: var(--gradient);
+        }
+
+        .news-content {
+            padding: 1.5rem;
+        }
+
+        .news-category {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            background: var(--gradient);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .news-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            line-height: 1.4;
+        }
+
+        .news-description {
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid #e0e0e0;
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        .news-source {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .read-more {
+            background: var(--gradient);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s;
+            display: inline-block;
+        }
+
+        .read-more:hover {
+            transform: scale(1.05);
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .no-results h2 {
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            margin-top: 4rem;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .footer-description {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        .copyright {
+            padding-top: 2rem;
+            border-top: 2px solid #e0e0e0;
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .creator-name {
+            font-weight: bold;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+            }
+
+            .search-container {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .tabs-container {
+                gap: 0.5rem;
+            }
+
+            .tab-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Scroll to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            z-index: 999;
+        }
+
+        .scroll-top.visible {
+            display: flex;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px) scale(1.1);
+        }
+    </style>
 </head>
 <body>
     <!-- Animated Background -->
-    <div class="animated-background">
-        <div class="circle circle-1"></div>
-        <div class="circle circle-2"></div>
-        <div class="circle circle-3"></div>
-        <div class="floating-math">∫</div>
-        <div class="floating-math">∑</div>
-        <div class="floating-math">π</div>
-        <div class="floating-math">∞</div>
-        <div class="floating-math">∂</div>
+    <div class="bg-animation">
+        <div class="math-symbol" style="top: 10%; left: 10%; animation-delay: 0s;">∫</div>
+        <div class="math-symbol" style="top: 20%; left: 80%; animation-delay: 2s;">∑</div>
+        <div class="math-symbol" style="top: 60%; left: 15%; animation-delay: 4s;">π</div>
+        <div class="math-symbol" style="top: 70%; left: 75%; animation-delay: 6s;">∞</div>
+        <div class="math-symbol" style="top: 40%; left: 50%; animation-delay: 8s;">∂</div>
+        <div class="math-symbol" style="top: 85%; left: 40%; animation-delay: 10s;">θ</div>
     </div>
 
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                <span class="gradient-text">AM</span>
-            </div>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="#home" class="nav-link active">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#skills" class="nav-link">Skills</a></li>
-                <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#mathematics" class="nav-link">Mathematics</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">📐 Math News Hub</div>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search mathematics news...">
+                <button class="search-btn" onclick="searchNews()">🔍 Search</button>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1 class="hero-title">
-                <span class="typing-text">Hi, I'm Abdelouahab Mostafa</span>
-            </h1>
-            <h2 class="hero-subtitle">Mathematician | Developer | Innovator</h2>
-            <p class="hero-description">
-                Passionate about exploring the beauty of mathematics and creating innovative solutions
-                that bridge theory with practical applications.
-            </p>
-            <div class="hero-buttons">
-                <a href="#projects" class="btn btn-primary">View My Work</a>
-                <a href="#contact" class="btn btn-outline">Get In Touch</a>
-            </div>
-            <div class="scroll-indicator">
-                <span>Scroll Down</span>
-                <div class="mouse">
-                    <div class="wheel"></div>
-                </div>
-            </div>
+    <!-- Filter Tabs -->
+    <div class="filter-tabs">
+        <div class="tabs-container">
+            <button class="tab-btn active" onclick="filterNews('all')">All News</button>
+            <button class="tab-btn" onclick="filterNews('algebra')">Algebra</button>
+            <button class="tab-btn" onclick="filterNews('calculus')">Calculus</button>
+            <button class="tab-btn" onclick="filterNews('geometry')">Geometry</button>
+            <button class="tab-btn" onclick="filterNews('statistics')">Statistics</button>
+            <button class="tab-btn" onclick="filterNews('number theory')">Number Theory</button>
+            <button class="tab-btn" onclick="filterNews('topology')">Topology</button>
+            <button class="tab-btn" onclick="filterNews('applied math')">Applied Math</button>
         </div>
-    </section>
+    </div>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-content">
-                <div class="about-image">
-                    <div class="image-placeholder">
-                        <span class="initials">AM</span>
-                    </div>
-                    <div class="stats-grid">
-                        <div class="stat-item">
-                            <span class="stat-number" data-target="50">0</span>
-                            <span class="stat-label">Projects</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number" data-target="100">0</span>
-                            <span class="stat-label">Problems Solved</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number" data-target="5">0</span>
-                            <span class="stat-label">Years Experience</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-text">
-                    <h3>Exploring the Intersection of Math & Technology</h3>
-                    <p>
-                        I'm Abdelouahab Mostafa, a dedicated mathematician and developer with a passion for 
-                        problem-solving and innovation. My journey in mathematics has led me to explore 
-                        various fields including calculus, algebra, number theory, and their applications 
-                        in modern technology.
-                    </p>
-                    <p>
-                        Through coding and mathematical thinking, I create tools and solutions that make 
-                        complex concepts accessible and practical. Whether it's building calculators, 
-                        developing algorithms, or teaching mathematical concepts, I strive to make a 
-                        meaningful impact.
-                    </p>
-                    <div class="interests">
-                        <h4>Areas of Interest:</h4>
-                        <div class="interest-tags">
-                            <span class="tag">Pure Mathematics</span>
-                            <span class="tag">Algorithms</span>
-                            <span class="tag">Web Development</span>
-                            <span class="tag">Data Science</span>
-                            <span class="tag">Problem Solving</span>
-                            <span class="tag">Education</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- Main Content -->
+    <div class="container">
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            Loading latest mathematics news...
         </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills" class="skills">
-        <div class="container">
-            <h2 class="section-title">Skills & Expertise</h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <div class="category-icon">📐</div>
-                    <h3>Mathematics</h3>
-                    <div class="skill-bars">
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>Calculus</span>
-                                <span>95%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="95"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>Linear Algebra</span>
-                                <span>90%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="90"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>Number Theory</span>
-                                <span>88%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="88"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <div class="category-icon">💻</div>
-                    <h3>Programming</h3>
-                    <div class="skill-bars">
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>JavaScript</span>
-                                <span>92%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="92"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>Python</span>
-                                <span>85%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="85"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>HTML/CSS</span>
-                                <span>95%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="95"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <div class="category-icon">🎨</div>
-                    <h3>Design & Tools</h3>
-                    <div class="skill-bars">
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>UI/UX Design</span>
-                                <span>80%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="80"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>Git & GitHub</span>
-                                <span>88%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="88"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>Problem Solving</span>
-                                <span>93%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="93"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div id="newsContainer" class="news-grid" style="display: none;"></div>
+        <div id="noResults" class="no-results" style="display: none;">
+            <h2>🔍 No results found</h2>
+            <p>Try searching with different keywords or browse all news.</p>
         </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="projects">
-        <div class="container">
-            <h2 class="section-title">Featured Projects</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-overlay">
-                            <a href="index.html" class="project-link">View Project</a>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3>Advanced Calculator Suite</h3>
-                        <p>A comprehensive calculator with 17+ different calculation tools including scientific, statistics, and specialized calculators.</p>
-                        <div class="project-tags">
-                            <span>JavaScript</span>
-                            <span>HTML/CSS</span>
-                            <span>Math</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-overlay">
-                            <a href="#" class="project-link">Coming Soon</a>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3>Mathematical Visualization Tool</h3>
-                        <p>Interactive tool for visualizing complex mathematical functions, graphs, and geometric shapes in 2D and 3D.</p>
-                        <div class="project-tags">
-                            <span>Canvas API</span>
-                            <span>WebGL</span>
-                            <span>Calculus</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-overlay">
-                            <a href="#" class="project-link">Coming Soon</a>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3>Algorithm Playground</h3>
-                        <p>Educational platform for learning and visualizing sorting algorithms, graph algorithms, and data structures.</p>
-                        <div class="project-tags">
-                            <span>React</span>
-                            <span>Algorithms</span>
-                            <span>Education</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-overlay">
-                            <a href="#" class="project-link">Coming Soon</a>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3>Math Problem Generator</h3>
-                        <p>AI-powered tool that generates practice problems for various mathematical topics with step-by-step solutions.</p>
-                        <div class="project-tags">
-                            <span>Python</span>
-                            <span>AI</span>
-                            <span>Education</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Mathematics Section -->
-    <section id="mathematics" class="mathematics">
-        <div class="container">
-            <h2 class="section-title">Mathematics Resources</h2>
-            <div class="math-content">
-                <div class="math-tabs">
-                    <button class="tab-btn active" data-tab="theorems">Theorems</button>
-                    <button class="tab-btn" data-tab="formulas">Formulas</button>
-                    <button class="tab-btn" data-tab="problems">Problems</button>
-                    <button class="tab-btn" data-tab="tutorials">Tutorials</button>
-                </div>
-
-                <div class="tab-content active" id="theorems">
-                    <div class="math-cards">
-                        <div class="math-card">
-                            <h3>Pythagorean Theorem</h3>
-                            <div class="formula">\(a^2 + b^2 = c^2\)</div>
-                            <p>In a right triangle, the square of the hypotenuse equals the sum of squares of the other two sides.</p>
-                            <button class="btn-small" onclick="showProof('pythagoras')">View Proof</button>
-                        </div>
-                        <div class="math-card">
-                            <h3>Fundamental Theorem of Calculus</h3>
-                            <div class="formula">\(\displaystyle\int_a^b f(x)\,dx = F(b) - F(a)\)</div>
-                            <p>Connects differentiation and integration, showing they are inverse operations.</p>
-                            <button class="btn-small" onclick="showProof('ftc')">View Proof</button>
-                        </div>
-                        <div class="math-card">
-                            <h3>Euler's Identity</h3>
-                            <div class="formula">\(e^{i\pi} + 1 = 0\)</div>
-                            <p>Connects five fundamental mathematical constants in a beautiful equation.</p>
-                            <button class="btn-small" onclick="showProof('euler')">View Proof</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tab-content" id="formulas">
-                    <div class="formula-grid">
-                        <div class="formula-item">
-                            <h4>Quadratic Formula</h4>
-                            <p>\(x = \frac{-b \pm \sqrt{b^2-4ac}}{2a}\)</p>
-                        </div>
-                        <div class="formula-item">
-                            <h4>Derivative Power Rule</h4>
-                            <p>\(\frac{d}{dx}(x^n) = nx^{n-1}\)</p>
-                        </div>
-                        <div class="formula-item">
-                            <h4>Area of Circle</h4>
-                            <p>\(A = \pi r^2\)</p>
-                        </div>
-                        <div class="formula-item">
-                            <h4>Law of Cosines</h4>
-                            <p>\(c^2 = a^2 + b^2 - 2ab\cos(C)\)</p>
-                        </div>
-                        <div class="formula-item">
-                            <h4>Sum of Arithmetic Series</h4>
-                            <p>\(S_n = \frac{n(a_1 + a_n)}{2}\)</p>
-                        </div>
-                        <div class="formula-item">
-                            <h4>Binomial Theorem</h4>
-                            <p>\((a+b)^n = \sum_{k=0}^{n} \binom{n}{k}a^{n-k}b^k\)</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tab-content" id="problems">
-                    <div class="problem-list">
-                        <div class="problem-item">
-                            <h4>Problem 1: Integration</h4>
-                            <p>Evaluate: \(\displaystyle\int x^2 \cdot e^x \, dx\)</p>
-                            <button class="btn-small" onclick="toggleSolution(1)">Show Solution</button>
-                            <div class="solution" id="solution1" style="display:none;">
-                                <p><strong>Solution:</strong> Using integration by parts twice:</p>
-                                <p>\(\displaystyle\int x^2 e^x dx = x^2e^x - 2xe^x + 2e^x + C = e^x(x^2 - 2x + 2) + C\)</p>
-                            </div>
-                        </div>
-                        <div class="problem-item">
-                            <h4>Problem 2: Number Theory</h4>
-                            <p>Prove that \(\sqrt{2}\) is irrational</p>
-                            <button class="btn-small" onclick="toggleSolution(2)">Show Solution</button>
-                            <div class="solution" id="solution2" style="display:none;">
-                                <p><strong>Proof by Contradiction:</strong></p>
-                                <p>Assume \(\sqrt{2} = \frac{a}{b}\) where \(a,b\) are coprime. Then \(a^2 = 2b^2\), so \(a\) is even. Let \(a=2k\), then \(4k^2 = 2b^2\), so \(b^2 = 2k^2\), meaning \(b\) is also even. This contradicts that \(a,b\) are coprime. \(\square\)</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tab-content" id="tutorials">
-                    <div class="tutorial-grid">
-                        <div class="tutorial-card">
-                            <div class="tutorial-icon">📚</div>
-                            <h4>Calculus Basics</h4>
-                            <p>Learn limits, derivatives, and integrals from scratch</p>
-                            <a href="#" class="tutorial-link">Start Learning →</a>
-                        </div>
-                        <div class="tutorial-card">
-                            <div class="tutorial-icon">🔢</div>
-                            <h4>Linear Algebra</h4>
-                            <p>Master vectors, matrices, and transformations</p>
-                            <a href="#" class="tutorial-link">Start Learning →</a>
-                        </div>
-                        <div class="tutorial-card">
-                            <div class="tutorial-icon">🎲</div>
-                            <h4>Probability & Statistics</h4>
-                            <p>Understand distributions, inference, and analysis</p>
-                            <a href="#" class="tutorial-link">Start Learning →</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h3>Let's Connect</h3>
-                    <p>I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.</p>
-                    <div class="contact-methods">
-                        <div class="contact-method">
-                            <div class="method-icon">📧</div>
-                            <div class="method-info">
-                                <h4>Email</h4>
-                                <p>abdelouahab.mostafa@email.com</p>
-                            </div>
-                        </div>
-                        <div class="contact-method">
-                            <div class="method-icon">🌐</div>
-                            <div class="method-info">
-                                <h4>GitHub</h4>
-                                <p><a href="https://github.com/abdelouahabmostafaetu-bot" target="_blank">@abdelouahabmostafaetu-bot</a></p>
-                            </div>
-                        </div>
-                        <div class="contact-method">
-                            <div class="method-icon">💬</div>
-                            <div class="method-info">
-                                <h4>Math Stack Exchange</h4>
-                                <p><a href="https://math.stackexchange.com/users/1183190/epsilon" target="_blank">@epsilon</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="social-links">
-                        <a href="https://web.facebook.com/profile.php?id=61567367597518" target="_blank" class="social-btn">Facebook</a>
-                        <a href="https://github.com/abdelouahabmostafaetu-bot" target="_blank" class="social-btn">GitHub</a>
-                        <a href="https://math.stackexchange.com/users/1183190/epsilon" target="_blank" class="social-btn">Stack Exchange</a>
-                    </div>
-                </div>
-                <div class="contact-form">
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <input type="text" id="name" required>
-                            <label for="name">Your Name</label>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" id="email" required>
-                            <label for="email">Your Email</label>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="subject" required>
-                            <label for="subject">Subject</label>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="message" rows="5" required></textarea>
-                            <label for="message">Message</label>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block">Send Message</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
+    </div>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Abdelouahab Mostafa</h3>
-                    <p>Mathematician | Developer | Problem Solver</p>
-                    <p>Transforming mathematical concepts into innovative digital solutions.</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#projects">Projects</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Resources</h4>
-                    <ul>
-                        <li><a href="index.html">Calculator Suite</a></li>
-                        <li><a href="#mathematics">Math Resources</a></li>
-                        <li><a href="#projects">View Projects</a></li>
-                    </ul>
-                </div>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">📐 Mathematics News Hub</div>
+            <p class="footer-description">
+                Your premier source for the latest mathematical discoveries, research breakthroughs, 
+                and academic news from around the world. Stay updated with cutting-edge mathematics.
+            </p>
+            <div class="footer-links">
+                <a href="index.html">Calculator</a>
+                <a href="portfolio.html">Portfolio</a>
+                <a href="math-news.html">Math News</a>
+                <a href="#" onclick="scrollToTop()">Back to Top</a>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Abdelouahab Mostafa. All rights reserved.</p>
-                <p>Made with ❤️ and Mathematics</p>
+            <div class="footer-social">
+                <a href="#" class="social-icon" title="Twitter">🐦</a>
+                <a href="#" class="social-icon" title="GitHub">💻</a>
+                <a href="#" class="social-icon" title="LinkedIn">💼</a>
+                <a href="#" class="social-icon" title="Email">📧</a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Mathematics News Hub. All rights reserved.</p>
+                <p style="margin-top: 1rem;">Created with ❤️ by <span class="creator-name">Abdelouahab Mostafa</span></p>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">Bringing mathematical knowledge to everyone, everywhere.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
-    <button class="back-to-top" id="backToTop">↑</button>
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTopBtn" onclick="scrollToTop()">↑</button>
 
-    <script src="portfolio-script.js"></script>
+    <script>
+        let allNews = [];
+        let currentFilter = 'all';
+
+        // Simulated mathematics news data (In production, this would fetch from APIs like arXiv, ScienceDaily, etc.)
+        const mathNewsData = [
+            {
+                title: "Breakthrough in Prime Number Theory",
+                description: "Mathematicians discover new patterns in the distribution of prime numbers, potentially revolutionizing cryptography and number theory.",
+                category: "Number Theory",
+                source: "Nature Mathematics",
+                date: "2025-12-09",
+                url: "#",
+                tags: ["prime numbers", "number theory", "cryptography"]
+            },
+            {
+                title: "Revolutionary Approach to the Riemann Hypothesis",
+                description: "A team of researchers presents a novel method that brings us closer to solving one of mathematics' greatest unsolved problems.",
+                category: "Pure Mathematics",
+                source: "Annals of Mathematics",
+                date: "2025-12-08",
+                url: "#",
+                tags: ["riemann hypothesis", "pure mathematics", "complex analysis"]
+            },
+            {
+                title: "AI Discovers New Mathematical Formulas",
+                description: "Artificial intelligence system generates unexpected mathematical relationships, opening new avenues for research in algebra and calculus.",
+                category: "Applied Math",
+                source: "Science Daily",
+                date: "2025-12-07",
+                url: "#",
+                tags: ["AI", "machine learning", "algebra", "calculus"]
+            },
+            {
+                title: "Topology Breakthrough Solves Century-Old Problem",
+                description: "Mathematicians resolve a 100-year-old conjecture in topology, with implications for physics and data analysis.",
+                category: "Topology",
+                source: "Mathematical Intelligencer",
+                date: "2025-12-06",
+                url: "#",
+                tags: ["topology", "geometry", "mathematical physics"]
+            },
+            {
+                title: "New Statistical Method Improves COVID-19 Modeling",
+                description: "Researchers develop advanced statistical techniques for more accurate disease spread predictions and healthcare planning.",
+                category: "Statistics",
+                source: "Journal of Applied Statistics",
+                date: "2025-12-05",
+                url: "#",
+                tags: ["statistics", "epidemiology", "data science"]
+            },
+            {
+                title: "Geometric Discovery in Higher Dimensions",
+                description: "Mathematicians uncover unexpected geometric properties in 8-dimensional space with applications in string theory.",
+                category: "Geometry",
+                source: "Geometry & Topology",
+                date: "2025-12-04",
+                url: "#",
+                tags: ["geometry", "higher dimensions", "theoretical physics"]
+            },
+            {
+                title: "Calculus Innovation Simplifies Complex Equations",
+                description: "New calculus technique provides elegant solutions to previously intractable differential equations.",
+                category: "Calculus",
+                source: "Mathematical Methods",
+                date: "2025-12-03",
+                url: "#",
+                tags: ["calculus", "differential equations", "analysis"]
+            },
+            {
+                title: "Algebraic Structures in Quantum Computing",
+                description: "Researchers discover new algebraic frameworks that could accelerate quantum algorithm development.",
+                category: "Algebra",
+                source: "Quantum Mathematics",
+                date: "2025-12-02",
+                url: "#",
+                tags: ["algebra", "quantum computing", "abstract algebra"]
+            },
+            {
+                title: "Graph Theory Advances Network Security",
+                description: "New graph-theoretic algorithms enhance cybersecurity by detecting network vulnerabilities more efficiently.",
+                category: "Applied Math",
+                source: "Discrete Mathematics",
+                date: "2025-12-01",
+                url: "#",
+                tags: ["graph theory", "cybersecurity", "algorithms"]
+            },
+            {
+                title: "Fractal Patterns Found in Financial Markets",
+                description: "Mathematicians identify fractal structures in stock market data, improving predictive models for trading.",
+                category: "Applied Math",
+                source: "Mathematical Finance",
+                date: "2025-11-30",
+                url: "#",
+                tags: ["fractals", "financial mathematics", "chaos theory"]
+            },
+            {
+                title: "Number Theory Application in Blockchain",
+                description: "Advanced number-theoretic concepts strengthen blockchain security and efficiency in cryptocurrency systems.",
+                category: "Number Theory",
+                source: "Cryptography Today",
+                date: "2025-11-29",
+                url: "#",
+                tags: ["number theory", "blockchain", "cryptography"]
+            },
+            {
+                title: "Statistical Learning Theory Breakthrough",
+                description: "New theoretical framework unifies various machine learning approaches under single mathematical paradigm.",
+                category: "Statistics",
+                source: "Statistical Science",
+                date: "2025-11-28",
+                url: "#",
+                tags: ["statistics", "machine learning", "theory"]
+            },
+            {
+                title: "Euler's Identity: New Interpretation Discovered",
+                description: "Mathematicians reveal deeper connections between Euler's famous identity and modern mathematical physics.",
+                category: "Pure Mathematics",
+                source: "American Mathematical Monthly",
+                date: "2025-11-27",
+                url: "#",
+                tags: ["euler", "complex numbers", "mathematical beauty"]
+            },
+            {
+                title: "Optimization Algorithms Transform Logistics",
+                description: "Advanced mathematical optimization reduces global shipping costs by 30% through improved routing algorithms.",
+                category: "Applied Math",
+                source: "Operations Research",
+                date: "2025-11-26",
+                url: "#",
+                tags: ["optimization", "logistics", "algorithms"]
+            },
+            {
+                title: "Knot Theory Advances DNA Research",
+                description: "Mathematical knot theory provides new insights into DNA structure and replication mechanisms.",
+                category: "Topology",
+                source: "Journal of Mathematical Biology",
+                date: "2025-11-25",
+                url: "#",
+                tags: ["knot theory", "topology", "biology"]
+            },
+            {
+                title: "Pythagoras Theorem: 3000 Years Later Still Inspiring",
+                description: "New applications of the ancient theorem emerge in modern architecture and computer graphics.",
+                category: "Geometry",
+                source: "Mathematics Magazine",
+                date: "2025-11-24",
+                url: "#",
+                tags: ["pythagoras", "geometry", "applications"]
+            }
+        ];
+
+        // Initialize
+        function init() {
+            allNews = mathNewsData;
+            displayNews(allNews);
+            setTimeout(() => {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('newsContainer').style.display = 'grid';
+            }, 1000);
+        }
+
+        // Display news
+        function displayNews(newsArray) {
+            const container = document.getElementById('newsContainer');
+            container.innerHTML = '';
+
+            if (newsArray.length === 0) {
+                document.getElementById('newsContainer').style.display = 'none';
+                document.getElementById('noResults').style.display = 'block';
+                return;
+            }
+
+            document.getElementById('noResults').style.display = 'none';
+            document.getElementById('newsContainer').style.display = 'grid';
+
+            newsArray.forEach((news, index) => {
+                const card = document.createElement('div');
+                card.className = 'news-card';
+                card.style.animationDelay = `${index * 0.1}s`;
+                
+                const categoryColors = {
+                    'Number Theory': '#667eea',
+                    'Pure Mathematics': '#764ba2',
+                    'Applied Math': '#f093fb',
+                    'Topology': '#4facfe',
+                    'Statistics': '#43e97b',
+                    'Geometry': '#fa709a',
+                    'Calculus': '#fee140',
+                    'Algebra': '#30cfd0'
+                };
+
+                card.innerHTML = `
+                    <div class="news-image" style="background: linear-gradient(135deg, ${categoryColors[news.category] || '#667eea'}, ${categoryColors[news.category] || '#764ba2'}); display: flex; align-items: center; justify-content: center; font-size: 4rem;">
+                        ${getCategoryIcon(news.category)}
+                    </div>
+                    <div class="news-content">
+                        <span class="news-category">${news.category}</span>
+                        <h3 class="news-title">${news.title}</h3>
+                        <p class="news-description">${news.description}</p>
+                        <div class="news-meta">
+                            <span class="news-source">${news.source}</span>
+                            <span class="news-date">${formatDate(news.date)}</span>
+                        </div>
+                        <div style="margin-top: 1rem;">
+                            <a href="${news.url}" class="read-more" target="_blank">Read More →</a>
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+
+        // Get category icon
+        function getCategoryIcon(category) {
+            const icons = {
+                'Number Theory': '🔢',
+                'Pure Mathematics': '∞',
+                'Applied Math': '📊',
+                'Topology': '🌐',
+                'Statistics': '📈',
+                'Geometry': '📐',
+                'Calculus': '∫',
+                'Algebra': '𝑥'
+            };
+            return icons[category] || '📐';
+        }
+
+        // Format date
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffTime = Math.abs(now - date);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays === 1) return 'Yesterday';
+            if (diffDays < 7) return `${diffDays} days ago`;
+            if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
+            
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        }
+
+        // Search news
+        function searchNews() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            if (!query) {
+                displayNews(allNews);
+                return;
+            }
+
+            const filtered = allNews.filter(news => 
+                news.title.toLowerCase().includes(query) ||
+                news.description.toLowerCase().includes(query) ||
+                news.category.toLowerCase().includes(query) ||
+                news.tags.some(tag => tag.includes(query))
+            );
+
+            displayNews(filtered);
+        }
+
+        // Filter news by category
+        function filterNews(category) {
+            currentFilter = category;
+            
+            // Update active tab
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            if (category === 'all') {
+                displayNews(allNews);
+            } else {
+                const filtered = allNews.filter(news => 
+                    news.category.toLowerCase().includes(category.toLowerCase()) ||
+                    news.tags.some(tag => tag.includes(category.toLowerCase()))
+                );
+                displayNews(filtered);
+            }
+        }
+
+        // Search on Enter key
+        document.getElementById('searchInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                searchNews();
+            }
+        });
+
+        // Scroll to top
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Show/hide scroll to top button
+        window.addEventListener('scroll', () => {
+            const scrollBtn = document.getElementById('scrollTopBtn');
+            if (window.pageYOffset > 300) {
+                scrollBtn.classList.add('visible');
+            } else {
+                scrollBtn.classList.remove('visible');
+            }
+        });
+
+        // Initialize on load
+        window.addEventListener('load', init);
+
+        // Console message
+        console.log('%c📐 Mathematics News Hub', 'background: linear-gradient(135deg, #667eea, #764ba2); color: white; font-size: 20px; padding: 10px; border-radius: 5px;');
+        console.log('%cCreated by Abdelouahab Mostafa', 'color: #667eea; font-size: 14px; font-weight: bold;');
+        console.log('%cStay curious, stay mathematical! 🚀', 'color: #764ba2; font-size: 12px;');
+
+        // ============================================
+        // ADVANCED FEATURES & UTILITIES
+        // ============================================
+
+        // Auto-refresh news periodically
+        let autoRefreshInterval = null;
+        const AUTO_REFRESH_TIME = 60000; // 1 minute
+
+        function enableAutoRefresh() {
+            if (autoRefreshInterval) return;
+            
+            autoRefreshInterval = setInterval(() => {
+                console.log('🔄 Auto-refreshing news...');
+                // In production, this would fetch new data from API
+                const notification = createNotification('News updated!', 'info');
+                document.body.appendChild(notification);
+                setTimeout(() => notification.remove(), 3000);
+            }, AUTO_REFRESH_TIME);
+            
+            showCustomNotification('Auto-refresh enabled', 'success');
+        }
+
+        function disableAutoRefresh() {
+            if (autoRefreshInterval) {
+                clearInterval(autoRefreshInterval);
+                autoRefreshInterval = null;
+                showCustomNotification('Auto-refresh disabled', 'info');
+            }
+        }
+
+        // Custom notification system
+        function showCustomNotification(message, type = 'info') {
+            const colors = {
+                success: 'linear-gradient(135deg, #48bb78, #38a169)',
+                error: 'linear-gradient(135deg, #fc8181, #f56565)',
+                warning: 'linear-gradient(135deg, #f6ad55, #ed8936)',
+                info: 'linear-gradient(135deg, #667eea, #764ba2)'
+            };
+
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 30px;
+                background: ${colors[type]};
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 10px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                z-index: 10001;
+                animation: slideInRight 0.5s ease-out;
+                font-weight: 600;
+            `;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.5s ease-out';
+                setTimeout(() => notification.remove(), 500);
+            }, 3000);
+        }
+
+        function createNotification(text, type) {
+            const notif = document.createElement('div');
+            notif.textContent = text;
+            notif.style.cssText = `
+                position: fixed; top: 100px; right: 30px; background: linear-gradient(135deg, #667eea, #764ba2);
+                color: white; padding: 1rem 2rem; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                z-index: 10001; animation: slideInRight 0.5s ease-out; font-weight: 600;
+            `;
+            return notif;
+        }
+
+        // Add animation styles
+        const animationStyles = document.createElement('style');
+        animationStyles.textContent = `
+            @keyframes slideInRight {
+                from { transform: translateX(400px); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOutRight {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(400px); opacity: 0; }
+            }
+            @keyframes pulse {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+            }
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-5px); }
+                75% { transform: translateX(5px); }
+            }
+        `;
+        document.head.appendChild(animationStyles);
+
+        // Bookmarking system
+        let bookmarkedNews = JSON.parse(localStorage.getItem('bookmarkedNews') || '[]');
+
+        function toggleBookmark(newsIndex) {
+            const news = allNews[newsIndex];
+            const existingIndex = bookmarkedNews.findIndex(b => b.title === news.title);
+
+            if (existingIndex > -1) {
+                bookmarkedNews.splice(existingIndex, 1);
+                showCustomNotification('Removed from bookmarks', 'info');
+            } else {
+                bookmarkedNews.push(news);
+                showCustomNotification('Added to bookmarks', 'success');
+            }
+
+            localStorage.setItem('bookmarkedNews', JSON.stringify(bookmarkedNews));
+            updateBookmarkBadge();
+        }
+
+        function updateBookmarkBadge() {
+            const badge = document.getElementById('bookmarkBadge');
+            if (badge) {
+                badge.textContent = bookmarkedNews.length;
+                badge.style.display = bookmarkedNews.length > 0 ? 'inline-block' : 'none';
+            }
+        }
+
+        function showBookmarks() {
+            if (bookmarkedNews.length === 0) {
+                showCustomNotification('No bookmarks yet', 'info');
+                return;
+            }
+            displayNews(bookmarkedNews);
+            showCustomNotification(`Showing ${bookmarkedNews.length} bookmarked articles`, 'info');
+        }
+
+        // Dark mode toggle
+        let isDarkMode = localStorage.getItem('darkMode') === 'true';
+
+        function toggleDarkMode() {
+            isDarkMode = !isDarkMode;
+            localStorage.setItem('darkMode', isDarkMode);
+            applyDarkMode();
+        }
+
+        function applyDarkMode() {
+            if (isDarkMode) {
+                document.body.style.background = 'linear-gradient(135deg, #1a202c 0%, #2d3748 100%)';
+                document.querySelectorAll('.news-card').forEach(card => {
+                    card.style.background = '#2d3748';
+                    card.style.color = '#f7fafc';
+                });
+            } else {
+                document.body.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                document.querySelectorAll('.news-card').forEach(card => {
+                    card.style.background = '#ffffff';
+                    card.style.color = '#1a202c';
+                });
+            }
+        }
+
+        // Reading time estimator
+        function estimateReadingTime(text) {
+            const wordsPerMinute = 200;
+            const wordCount = text.split(/\s+/).length;
+            const minutes = Math.ceil(wordCount / wordsPerMinute);
+            return minutes;
+        }
+
+        // Share functionality
+        async function shareArticle(title, url) {
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: title,
+                        text: 'Check out this mathematics article!',
+                        url: url
+                    });
+                    showCustomNotification('Article shared successfully', 'success');
+                } catch (err) {
+                    console.log('Share failed:', err);
+                }
+            } else {
+                // Fallback: Copy to clipboard
+                navigator.clipboard.writeText(url);
+                showCustomNotification('Link copied to clipboard', 'success');
+            }
+        }
+
+        // Related articles finder
+        function findRelatedArticles(news) {
+            return allNews.filter(article => 
+                article.title !== news.title &&
+                (article.category === news.category ||
+                 article.tags.some(tag => news.tags.includes(tag)))
+            ).slice(0, 3);
+        }
+
+        // Statistics tracker
+        const statsTracker = {
+            searches: 0,
+            articlesViewed: 0,
+            bookmarks: 0,
+            filters: {},
+
+            trackSearch() {
+                this.searches++;
+                this.saveStats();
+            },
+
+            trackArticleView() {
+                this.articlesViewed++;
+                this.saveStats();
+            },
+
+            trackFilter(category) {
+                this.filters[category] = (this.filters[category] || 0) + 1;
+                this.saveStats();
+            },
+
+            saveStats() {
+                localStorage.setItem('newsHubStats', JSON.stringify(this));
+            },
+
+            loadStats() {
+                const saved = localStorage.getItem('newsHubStats');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    Object.assign(this, data);
+                }
+            },
+
+            getStats() {
+                return {
+                    totalSearches: this.searches,
+                    totalArticlesViewed: this.articlesViewed,
+                    totalBookmarks: bookmarkedNews.length,
+                    topFilter: Object.keys(this.filters).reduce((a, b) => 
+                        this.filters[a] > this.filters[b] ? a : b, 'none')
+                };
+            }
+        };
+
+        // Export functionality
+        function exportBookmarks() {
+            const dataStr = JSON.stringify(bookmarkedNews, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'math-news-bookmarks.json';
+            link.click();
+            URL.revokeObjectURL(url);
+            showCustomNotification('Bookmarks exported', 'success');
+        }
+
+        // Advanced search with filters
+        function advancedSearch(query, options = {}) {
+            const {
+                category = null,
+                dateFrom = null,
+                dateTo = null,
+                source = null
+            } = options;
+
+            let results = allNews.filter(news => {
+                const matchesQuery = !query || 
+                    news.title.toLowerCase().includes(query.toLowerCase()) ||
+                    news.description.toLowerCase().includes(query.toLowerCase());
+
+                const matchesCategory = !category || news.category === category;
+                
+                const newsDate = new Date(news.date);
+                const matchesDateFrom = !dateFrom || newsDate >= new Date(dateFrom);
+                const matchesDateTo = !dateTo || newsDate <= new Date(dateTo);
+                
+                const matchesSource = !source || news.source === source;
+
+                return matchesQuery && matchesCategory && matchesDateFrom && matchesDateTo && matchesSource;
+            });
+
+            return results;
+        }
+
+        // Trending topics analyzer
+        function analyzeTrendingTopics() {
+            const tagCounts = {};
+            allNews.forEach(news => {
+                news.tags.forEach(tag => {
+                    tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+                });
+            });
+
+            const trending = Object.entries(tagCounts)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10)
+                .map(([tag, count]) => ({ tag, count }));
+
+            return trending;
+        }
+
+        // Display trending topics
+        function showTrendingTopics() {
+            const trending = analyzeTrendingTopics();
+            console.log('🔥 Trending Topics:', trending);
+            
+            let message = 'Trending: ';
+            message += trending.slice(0, 5).map(t => `${t.tag} (${t.count})`).join(', ');
+            showCustomNotification(message, 'info');
+        }
+
+        // News recommendation engine
+        function getRecommendations(userInterests = []) {
+            if (userInterests.length === 0) {
+                // Use most popular category from stats
+                const stats = statsTracker.getStats();
+                userInterests = [stats.topFilter];
+            }
+
+            return allNews.filter(news => 
+                news.tags.some(tag => userInterests.includes(tag)) ||
+                userInterests.includes(news.category)
+            ).slice(0, 5);
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Ctrl/Cmd + K: Focus search
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                document.getElementById('searchInput').focus();
+            }
+
+            // Ctrl/Cmd + B: Show bookmarks
+            if ((e.ctrlKey || e.metaKey) && e.key === 'b') {
+                e.preventDefault();
+                showBookmarks();
+            }
+
+            // Ctrl/Cmd + D: Toggle dark mode
+            if ((e.ctrlKey || e.metaKey) && e.key === 'd') {
+                e.preventDefault();
+                toggleDarkMode();
+            }
+
+            // Escape: Clear search
+            if (e.key === 'Escape') {
+                document.getElementById('searchInput').value = '';
+                displayNews(allNews);
+            }
+        });
+
+        // Print functionality
+        function printArticle(newsIndex) {
+            const news = allNews[newsIndex];
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+                <html>
+                <head>
+                    <title>${news.title}</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; padding: 2rem; max-width: 800px; margin: 0 auto; }
+                        h1 { color: #667eea; }
+                        .meta { color: #666; margin: 1rem 0; }
+                        .content { line-height: 1.8; }
+                    </style>
+                </head>
+                <body>
+                    <h1>${news.title}</h1>
+                    <div class="meta">
+                        <p><strong>Category:</strong> ${news.category}</p>
+                        <p><strong>Source:</strong> ${news.source}</p>
+                        <p><strong>Date:</strong> ${news.date}</p>
+                    </div>
+                    <div class="content">
+                        <p>${news.description}</p>
+                    </div>
+                    <p style="margin-top: 2rem; color: #667eea; font-weight: bold;">
+                        Created by Abdelouahab Mostafa - Mathematics News Hub
+                    </p>
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+            printWindow.print();
+        }
+
+        // Initialize advanced features
+        statsTracker.loadStats();
+        updateBookmarkBadge();
+        applyDarkMode();
+
+        // Performance monitoring
+        const performanceMonitor = {
+            pageLoadTime: 0,
+            searchTimes: [],
+            
+            init() {
+                window.addEventListener('load', () => {
+                    this.pageLoadTime = performance.now();
+                    console.log(`⚡ Page loaded in ${this.pageLoadTime.toFixed(2)}ms`);
+                });
+            },
+            
+            trackSearch(startTime) {
+                const duration = performance.now() - startTime;
+                this.searchTimes.push(duration);
+                console.log(`🔍 Search completed in ${duration.toFixed(2)}ms`);
+            },
+            
+            getAverageSearchTime() {
+                if (this.searchTimes.length === 0) return 0;
+                const sum = this.searchTimes.reduce((a, b) => a + b, 0);
+                return (sum / this.searchTimes.length).toFixed(2);
+            }
+        };
+
+        performanceMonitor.init();
+
+        // Enhanced search with performance tracking
+        const originalSearchNews = searchNews;
+        searchNews = function() {
+            const startTime = performance.now();
+            statsTracker.trackSearch();
+            originalSearchNews();
+            performanceMonitor.trackSearch(startTime);
+        };
+
+        // Enhanced filter with tracking
+        const originalFilterNews = filterNews;
+        filterNews = function(category) {
+            statsTracker.trackFilter(category);
+            originalFilterNews(category);
+        };
+
+        // Welcome message with tips
+        setTimeout(() => {
+            const tips = [
+                '💡 Tip: Press Ctrl+K to quickly search',
+                '💡 Tip: Press Ctrl+B to view bookmarks',
+                '💡 Tip: Press Ctrl+D to toggle dark mode',
+                '💡 Tip: Use category filters for better results'
+            ];
+            const randomTip = tips[Math.floor(Math.random() * tips.length)];
+            showCustomNotification(randomTip, 'info');
+        }, 3000);
+
+        // Show statistics in console
+        setTimeout(() => {
+            const stats = statsTracker.getStats();
+            console.log('%c📊 Usage Statistics', 'color: #667eea; font-size: 16px; font-weight: bold;');
+            console.table(stats);
+            console.log(`⚡ Average search time: ${performanceMonitor.getAverageSearchTime()}ms`);
+        }, 5000);
+
+        console.log('%c✨ All features loaded successfully!', 'color: #48bb78; font-size: 14px; font-weight: bold;');
+        console.log('%cKeyboard Shortcuts: Ctrl+K (Search) | Ctrl+B (Bookmarks) | Ctrl+D (Dark Mode)', 'color: #f6ad55; font-size: 12px;');
+    </script>
 </body>
 </html>
