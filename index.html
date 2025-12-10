@@ -461,6 +461,383 @@
         .scroll-top:hover {
             transform: translateY(-5px) scale(1.1);
         }
+
+        /* Advanced CSS Animations */
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes slideInLeft {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideInUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes rotateIn {
+            from { transform: rotate(-200deg); opacity: 0; }
+            to { transform: rotate(0); opacity: 1; }
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            10%, 30% { transform: scale(0.9); }
+            20%, 40% { transform: scale(1.1); }
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
+        }
+
+        /* Particle system */
+        .particle {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: particleFloat 15s infinite;
+        }
+
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Loading skeleton */
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Tooltip styles */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-align: center;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Progress bar */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        /* Badge styles */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--gradient);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin: 0.25rem;
+        }
+
+        .badge-new {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+        }
+
+        .badge-hot {
+            background: linear-gradient(135deg, #fc8181, #f56565);
+            animation: pulse 2s infinite;
+        }
+
+        .badge-trending {
+            background: linear-gradient(135deg, #f6ad55, #ed8936);
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 20px;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideInUp 0.5s;
+        }
+
+        .modal-close {
+            position: absolute;
+            right: 1.5rem;
+            top: 1rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: #333;
+        }
+
+        /* Card hover effects */
+        .news-card-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+        }
+
+        .news-card-3d:hover {
+            transform: perspective(1000px) rotateY(10deg);
+        }
+
+        /* Glow effect */
+        .glow {
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.5),
+                        0 0 40px rgba(102, 126, 234, 0.3),
+                        0 0 60px rgba(102, 126, 234, 0.1);
+            animation: glowPulse 2s infinite;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(102, 126, 234, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(102, 126, 234, 0.8); }
+        }
+
+        /* Text effects */
+        .gradient-text {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .animated-underline {
+            position: relative;
+            display: inline-block;
+        }
+
+        .animated-underline::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--gradient);
+            transition: width 0.3s;
+        }
+
+        .animated-underline:hover::after {
+            width: 100%;
+        }
+
+        /* Floating action button */
+        .fab {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+            z-index: 999;
+        }
+
+        .fab:hover {
+            transform: scale(1.1) rotate(90deg);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+        }
+
+        /* Stats counter */
+        .stats-counter {
+            display: inline-block;
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Timeline styles */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: var(--gradient);
+        }
+
+        .timeline-item {
+            margin: 2rem 0;
+            position: relative;
+            animation: slideInLeft 0.5s;
+        }
+
+        /* Ribbon */
+        .ribbon {
+            position: absolute;
+            top: 10px;
+            right: -5px;
+            background: linear-gradient(135deg, #fc8181, #f56565);
+            color: white;
+            padding: 0.5rem 1rem;
+            font-weight: bold;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .ribbon::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            border-left: 5px solid transparent;
+            border-right: 5px solid #c53030;
+            border-top: 10px solid #c53030;
+        }
+
+        /* Star rating */
+        .star-rating {
+            display: inline-block;
+            font-size: 1.5rem;
+            color: #ffd700;
+        }
+
+        .star-rating .star {
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .star-rating .star:hover,
+        .star-rating .star.active {
+            color: #ffa500;
+            animation: bounceIn 0.3s;
+        }
+
+        /* Chip styles */
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            background: #f0f0f0;
+            border-radius: 25px;
+            margin: 0.25rem;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .chip:hover {
+            background: var(--gradient);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Loading dots */
+        .loading-dots {
+            display: inline-block;
+        }
+
+        .loading-dots span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--primary);
+            margin: 0 2px;
+            animation: dotBounce 1.4s infinite both;
+        }
+
+        .loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+        .loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes dotBounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
     </style>
 </head>
 <body>
@@ -1797,6 +2174,535 @@
         console.log('%c🚀 Advanced features loaded! Total: 25+ new features', 'color: #48bb78; font-size: 16px; font-weight: bold;');
         console.log('%c📱 Features: Voice Search, Reading List, Ratings, Text-to-Speech, Citations, Analytics & more!', 'color: #667eea; font-size: 12px;');
         console.log('%c💻 Created by Abdelouahab Mostafa - Mathematics News Hub Pro', 'color: #764ba2; font-size: 14px; font-weight: bold;');
+
+        // ============================================
+        // MEGA ADVANCED FEATURES - ULTIMATE EDITION
+        // ============================================
+
+        // Particle system generator
+        function createParticles(count = 20) {
+            const colors = ['#667eea', '#764ba2', '#f093fb', '#4facfe', '#43e97b'];
+            for (let i = 0; i < count; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.cssText = `
+                    width: ${Math.random() * 10 + 5}px;
+                    height: ${Math.random() * 10 + 5}px;
+                    background: ${colors[Math.floor(Math.random() * colors.length)]};
+                    left: ${Math.random() * 100}%;
+                    animation-delay: ${Math.random() * 5}s;
+                    animation-duration: ${Math.random() * 10 + 10}s;
+                `;
+                document.body.appendChild(particle);
+            }
+        }
+
+        // Advanced theme manager
+        const themeManager = {
+            themes: {
+                default: {
+                    primary: '#667eea',
+                    secondary: '#764ba2',
+                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+                },
+                ocean: {
+                    primary: '#4facfe',
+                    secondary: '#00f2fe',
+                    background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)'
+                },
+                sunset: {
+                    primary: '#fa709a',
+                    secondary: '#fee140',
+                    background: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)'
+                },
+                forest: {
+                    primary: '#43e97b',
+                    secondary: '#38f9d7',
+                    background: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)'
+                },
+                midnight: {
+                    primary: '#2c3e50',
+                    secondary: '#34495e',
+                    background: 'linear-gradient(135deg, #2c3e50 0%, #34495e 100%)'
+                }
+            },
+
+            current: 'default',
+
+            apply(themeName) {
+                if (this.themes[themeName]) {
+                    const theme = this.themes[themeName];
+                    document.body.style.background = theme.background;
+                    document.documentElement.style.setProperty('--primary', theme.primary);
+                    document.documentElement.style.setProperty('--secondary', theme.secondary);
+                    this.current = themeName;
+                    localStorage.setItem('selectedTheme', themeName);
+                    showCustomNotification(`Theme changed to ${themeName}`, 'success');
+                }
+            },
+
+            load() {
+                const saved = localStorage.getItem('selectedTheme');
+                if (saved && this.themes[saved]) {
+                    this.apply(saved);
+                }
+            }
+        };
+
+        // Quiz system
+        const mathQuiz = {
+            questions: [
+                {
+                    question: "What is the value of π (pi) approximately?",
+                    options: ["3.14159", "2.71828", "1.41421", "1.61803"],
+                    correct: 0,
+                    difficulty: "easy"
+                },
+                {
+                    question: "What is the derivative of x²?",
+                    options: ["x", "2x", "x³", "2x²"],
+                    correct: 1,
+                    difficulty: "medium"
+                },
+                {
+                    question: "What is Euler's number (e) approximately?",
+                    options: ["3.14159", "2.71828", "1.41421", "1.61803"],
+                    correct: 1,
+                    difficulty: "medium"
+                },
+                {
+                    question: "What is the integral of 1/x?",
+                    options: ["ln(x)", "x²", "e^x", "1/x²"],
+                    correct: 0,
+                    difficulty: "hard"
+                },
+                {
+                    question: "What is the sum of angles in a triangle?",
+                    options: ["90°", "180°", "270°", "360°"],
+                    correct: 1,
+                    difficulty: "easy"
+                }
+            ],
+
+            currentQuestion: 0,
+            score: 0,
+            history: [],
+
+            start() {
+                this.currentQuestion = 0;
+                this.score = 0;
+                this.showQuestion();
+            },
+
+            showQuestion() {
+                if (this.currentQuestion >= this.questions.length) {
+                    this.endQuiz();
+                    return;
+                }
+
+                const q = this.questions[this.currentQuestion];
+                console.log(`\n📝 Question ${this.currentQuestion + 1}/${this.questions.length}`);
+                console.log(`${q.question}`);
+                q.options.forEach((opt, i) => console.log(`${i + 1}. ${opt}`));
+            },
+
+            answer(optionIndex) {
+                const q = this.questions[this.currentQuestion];
+                const isCorrect = optionIndex === q.correct;
+                
+                if (isCorrect) {
+                    this.score++;
+                    showCustomNotification('Correct! ✓', 'success');
+                } else {
+                    showCustomNotification('Incorrect ✗', 'error');
+                }
+
+                this.history.push({
+                    question: q.question,
+                    userAnswer: optionIndex,
+                    correctAnswer: q.correct,
+                    isCorrect
+                });
+
+                this.currentQuestion++;
+                this.showQuestion();
+            },
+
+            endQuiz() {
+                const percentage = (this.score / this.questions.length * 100).toFixed(1);
+                console.log(`\n🎉 Quiz Complete!`);
+                console.log(`Score: ${this.score}/${this.questions.length} (${percentage}%)`);
+                showCustomNotification(`Quiz Score: ${this.score}/${this.questions.length}`, 'info');
+            }
+        };
+
+        // Achievement system
+        const achievementSystem = {
+            achievements: [
+                { id: 'first_search', name: 'First Steps', description: 'Performed first search', unlocked: false },
+                { id: 'bookworm', name: 'Bookworm', description: 'Bookmarked 10 articles', unlocked: false },
+                { id: 'speed_reader', name: 'Speed Reader', description: 'Read 50 articles', unlocked: false },
+                { id: 'master_searcher', name: 'Master Searcher', description: '100 searches performed', unlocked: false },
+                { id: 'theme_collector', name: 'Theme Collector', description: 'Tried all themes', unlocked: false },
+                { id: 'quiz_master', name: 'Quiz Master', description: 'Perfect quiz score', unlocked: false },
+                { id: 'early_bird', name: 'Early Bird', description: 'Visited site before 6 AM', unlocked: false },
+                { id: 'night_owl', name: 'Night Owl', description: 'Visited site after 11 PM', unlocked: false }
+            ],
+
+            check(achievementId) {
+                const achievement = this.achievements.find(a => a.id === achievementId);
+                if (achievement && !achievement.unlocked) {
+                    achievement.unlocked = true;
+                    achievement.unlockedDate = new Date().toISOString();
+                    this.save();
+                    this.showUnlock(achievement);
+                }
+            },
+
+            showUnlock(achievement) {
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background: linear-gradient(135deg, #ffd700, #ffed4e);
+                    color: #333;
+                    padding: 2rem;
+                    border-radius: 20px;
+                    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+                    z-index: 10001;
+                    text-align: center;
+                    animation: bounceIn 0.6s;
+                    max-width: 400px;
+                `;
+                notification.innerHTML = `
+                    <div style="font-size: 3rem;">🏆</div>
+                    <h2 style="margin: 1rem 0;">Achievement Unlocked!</h2>
+                    <h3 style="color: #667eea;">${achievement.name}</h3>
+                    <p style="color: #666;">${achievement.description}</p>
+                `;
+                document.body.appendChild(notification);
+                setTimeout(() => notification.remove(), 4000);
+            },
+
+            save() {
+                localStorage.setItem('achievements', JSON.stringify(this.achievements));
+            },
+
+            load() {
+                const saved = localStorage.getItem('achievements');
+                if (saved) {
+                    this.achievements = JSON.parse(saved);
+                }
+            },
+
+            getProgress() {
+                const unlocked = this.achievements.filter(a => a.unlocked).length;
+                return {
+                    unlocked,
+                    total: this.achievements.length,
+                    percentage: (unlocked / this.achievements.length * 100).toFixed(1)
+                };
+            }
+        };
+
+        // Advanced animation controller
+        const animationController = {
+            animations: {
+                confetti: () => {
+                    for (let i = 0; i < 50; i++) {
+                        const confetti = document.createElement('div');
+                        confetti.style.cssText = `
+                            position: fixed;
+                            width: 10px;
+                            height: 10px;
+                            background: ${['#667eea', '#764ba2', '#f093fb', '#ffd700'][Math.floor(Math.random() * 4)]};
+                            top: -20px;
+                            left: ${Math.random() * 100}%;
+                            animation: confettiFall ${Math.random() * 3 + 2}s linear;
+                            z-index: 10000;
+                        `;
+                        document.body.appendChild(confetti);
+                        setTimeout(() => confetti.remove(), 5000);
+                    }
+                },
+
+                fireworks: () => {
+                    const firework = document.createElement('div');
+                    firework.style.cssText = `
+                        position: fixed;
+                        top: 50%;
+                        left: 50%;
+                        width: 5px;
+                        height: 5px;
+                        background: #ffd700;
+                        border-radius: 50%;
+                        animation: explode 1s ease-out;
+                        z-index: 10000;
+                    `;
+                    document.body.appendChild(firework);
+                    setTimeout(() => firework.remove(), 1000);
+                }
+            },
+
+            play(animationName) {
+                if (this.animations[animationName]) {
+                    this.animations[animationName]();
+                }
+            }
+        };
+
+        // Add confetti animation to styles
+        const confettiStyle = document.createElement('style');
+        confettiStyle.textContent = `
+            @keyframes confettiFall {
+                to {
+                    transform: translateY(100vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+            @keyframes explode {
+                0% { transform: scale(1); opacity: 1; }
+                100% { transform: scale(20); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(confettiStyle);
+
+        // Gesture recognizer (for touch devices)
+        class GestureRecognizer {
+            constructor() {
+                this.startX = 0;
+                this.startY = 0;
+                this.threshold = 50;
+                this.init();
+            }
+
+            init() {
+                document.addEventListener('touchstart', (e) => {
+                    this.startX = e.touches[0].clientX;
+                    this.startY = e.touches[0].clientY;
+                });
+
+                document.addEventListener('touchend', (e) => {
+                    const endX = e.changedTouches[0].clientX;
+                    const endY = e.changedTouches[0].clientY;
+                    this.detectSwipe(endX, endY);
+                });
+            }
+
+            detectSwipe(endX, endY) {
+                const deltaX = endX - this.startX;
+                const deltaY = endY - this.startY;
+
+                if (Math.abs(deltaX) > this.threshold) {
+                    if (deltaX > 0) {
+                        this.onSwipeRight();
+                    } else {
+                        this.onSwipeLeft();
+                    }
+                }
+
+                if (Math.abs(deltaY) > this.threshold) {
+                    if (deltaY > 0) {
+                        this.onSwipeDown();
+                    } else {
+                        this.onSwipeUp();
+                    }
+                }
+            }
+
+            onSwipeLeft() {
+                console.log('Swiped left');
+                showCustomNotification('Swiped left! Try double tap for surprises', 'info');
+            }
+
+            onSwipeRight() {
+                console.log('Swiped right');
+                showCustomNotification('Swiped right! Keep exploring', 'info');
+            }
+
+            onSwipeUp() {
+                scrollToTop();
+            }
+
+            onSwipeDown() {
+                console.log('Swiped down');
+            }
+        }
+
+        // Word cloud generator
+        class WordCloud {
+            constructor(words) {
+                this.words = words;
+            }
+
+            generate() {
+                const wordCounts = {};
+                this.words.forEach(word => {
+                    wordCounts[word] = (wordCounts[word] || 0) + 1;
+                });
+
+                return Object.entries(wordCounts)
+                    .sort((a, b) => b[1] - a[1])
+                    .slice(0, 20);
+            }
+
+            getFromNews() {
+                const allWords = [];
+                allNews.forEach(news => {
+                    const words = news.title.toLowerCase().split(/\s+/);
+                    allWords.push(...words.filter(w => w.length > 4));
+                });
+                return this.generate.call({ words: allWords });
+            }
+        }
+
+        // Advanced search with AI-like scoring
+        class SmartSearch {
+            constructor() {
+                this.weights = {
+                    title: 3,
+                    description: 2,
+                    tags: 1.5,
+                    category: 1
+                };
+            }
+
+            search(query, articles = allNews) {
+                const queryLower = query.toLowerCase();
+                const queryWords = queryLower.split(/\s+/);
+
+                const scored = articles.map(article => {
+                    let score = 0;
+
+                    queryWords.forEach(word => {
+                        if (article.title.toLowerCase().includes(word)) {
+                            score += this.weights.title;
+                        }
+                        if (article.description.toLowerCase().includes(word)) {
+                            score += this.weights.description;
+                        }
+                        if (article.tags.some(tag => tag.includes(word))) {
+                            score += this.weights.tags;
+                        }
+                        if (article.category.toLowerCase().includes(word)) {
+                            score += this.weights.category;
+                        }
+                    });
+
+                    return { article, score };
+                });
+
+                return scored
+                    .filter(item => item.score > 0)
+                    .sort((a, b) => b.score - a.score)
+                    .map(item => item.article);
+            }
+        }
+
+        // Session manager
+        const sessionManager = {
+            sessionId: null,
+            startTime: null,
+            events: [],
+
+            init() {
+                this.sessionId = Date.now().toString(36) + Math.random().toString(36).substr(2);
+                this.startTime = new Date();
+                this.trackEvent('session_start');
+            },
+
+            trackEvent(eventName, data = {}) {
+                this.events.push({
+                    event: eventName,
+                    timestamp: new Date().toISOString(),
+                    data
+                });
+            },
+
+            getDuration() {
+                return Math.floor((new Date() - this.startTime) / 1000);
+            },
+
+            getSummary() {
+                return {
+                    sessionId: this.sessionId,
+                    duration: this.getDuration(),
+                    eventsCount: this.events.length,
+                    events: this.events
+                };
+            }
+        };
+
+        // Initialize mega features
+        themeManager.load();
+        achievementSystem.load();
+        sessionManager.init();
+        createParticles(15);
+        const gestureRecognizer = new GestureRecognizer();
+        const smartSearch = new SmartSearch();
+
+        // Check time-based achievements
+        const hour = new Date().getHours();
+        if (hour < 6) achievementSystem.check('early_bird');
+        if (hour >= 23) achievementSystem.check('night_owl');
+
+        // Enhanced search with smart scoring
+        const originalSmartSearch = searchNews;
+        searchNews = function() {
+            const query = document.getElementById('searchInput').value;
+            if (query) {
+                achievementSystem.check('first_search');
+                searchHistory.add(query);
+                const results = smartSearch.search(query);
+                displayNews(results);
+                searchHistory.updateResultsCount(query, results.length);
+            } else {
+                originalSmartSearch();
+            }
+        };
+
+        // Check achievements periodically
+        setInterval(() => {
+            if (statsTracker.searches >= 100) achievementSystem.check('master_searcher');
+            if (bookmarkedNews.length >= 10) achievementSystem.check('bookworm');
+            if (statsTracker.articlesViewed >= 50) achievementSystem.check('speed_reader');
+        }, 5000);
+
+        // Easter egg: Triple click for surprise
+        let clickCount = 0;
+        let clickTimer = null;
+        document.addEventListener('click', () => {
+            clickCount++;
+            clearTimeout(clickTimer);
+            clickTimer = setTimeout(() => {
+                if (clickCount === 3) {
+                    animationController.play('confetti');
+                    showCustomNotification('🎉 Easter egg found! Enjoy the confetti!', 'success');
+                }
+                clickCount = 0;
+            }, 500);
+        });
+
+        // Console commands guide
+        console.log('\n%c🎮 Available Commands:', 'color: #667eea; font-size: 18px; font-weight: bold;');
+        console.log('%cthemeManager.apply("ocean") - Change theme', 'color: #4facfe;');
+        console.log('%cmathQuiz.start() - Start math quiz', 'color: #43e97b;');
+        console.log('%canimationController.play("confetti") - Play confetti', 'color: #ffd700;');
+        console.log('%cachievementSystem.getProgress() - View achievements', 'color: #fa709a;');
+        console.log('%csessionManager.getSummary() - Session info', 'color: #764ba2;');
+        console.log('%cnew WordCloud().getFromNews() - Generate word cloud', 'color: #f6ad55;');
+
+        // Final initialization message
+        setTimeout(() => {
+            const progress = achievementSystem.getProgress();
+            console.log(`\n%c✨ ULTIMATE EDITION LOADED ✨`, 'background: linear-gradient(135deg, #667eea, #764ba2); color: white; font-size: 20px; padding: 10px; border-radius: 10px;');
+            console.log(`%c🏆 Achievements: ${progress.unlocked}/${progress.total} (${progress.percentage}%)`, 'color: #ffd700; font-size: 14px;');
+            console.log(`%c⏱️ Session Duration: ${sessionManager.getDuration()}s`, 'color: #4facfe; font-size: 14px;');
+            console.log(`%c💎 Total Features: 50+ Advanced Systems`, 'color: #43e97b; font-size: 14px;');
+            console.log(`%c👨‍💻 Created by Abdelouahab Mostafa - Mathematics News Hub ULTIMATE`, 'color: #764ba2; font-size: 16px; font-weight: bold;');
+        }, 8000);
     </script>
 </body>
 </html>
